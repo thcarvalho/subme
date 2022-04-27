@@ -1,8 +1,9 @@
-package com.fatec.lab.eng.subme.entities;
+package com.fatec.lab.eng.subme.dto;
 
 public class User extends Register{
 	private String email;
 	private String name;
+
 	public String getEmail() {
 		return email;
 	}

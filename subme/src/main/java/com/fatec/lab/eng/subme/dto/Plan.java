@@ -1,4 +1,4 @@
-package com.fatec.lab.eng.subme.entities;
+package com.fatec.lab.eng.subme.dto;
 
 public class Plan extends Register{
 	private String name;
