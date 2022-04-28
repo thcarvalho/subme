@@ -1,6 +1,6 @@
 package com.fatec.lab.eng.subme.dto;
 
-public class User extends Register{
+public class UserDTO extends RegisterDTO {
 	private String email;
 	private String name;
 

@@ -2,7 +2,7 @@ package com.fatec.lab.eng.subme.dto;
 
 import java.util.Date;
 
-public class Register{
+public class RegisterDTO {
 	private Long id;
 	private Date createdAt;
 	private Date updatedAt;

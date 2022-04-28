@@ -1,11 +1,20 @@
 package com.fatec.lab.eng.subme.dto;
 
-public class Plan extends Register{
+public class PlanDTO extends RegisterDTO {
 	private String name;
 	private double price;
 	private boolean isActive;
 	private String description;
-	
+
+	public PlanDTO() {}
+
+	public PlanDTO(String name, double price, boolean isActive, String description) {
+		this.name = name;
+		this.price = price;
+		this.isActive = isActive;
+		this.description = description;
+	}
+
 	public String getName() {
 		return name;
 	}
