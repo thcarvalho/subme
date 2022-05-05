@@ -4,35 +4,37 @@ import com.fatec.lab.eng.subme.dto.Adress;
 import com.fatec.lab.eng.subme.dto.Customer;
 import com.fatec.lab.eng.subme.dto.Plan;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "COMPANIES")
+@Table(name = "companies")
 public class CompanyEntity {
     @Id
     private Long id;
 
-    @Column(name = "CNPJ")
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "cpf_cnpj")
     private String cnpj;
 
-    @Column(name = "ADRESS")
+    @OneToOne
+    @JoinColumn(name = "id_adress")
     private Adress adress;
 
-    @Column(name = "PLAN")
+    @OneToMany
+    @JoinColumn(name = "id_plan")
     private List<Plan> plans;
+    @OneToMany
+    @JoinColumn(name = "id_customer")
+    private List<Customer> customers;
 
-    @Column(name = "COSTUMER")
-    private List<Customer> costumers;
-
-    @Column(name = "DAT_CREATE")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name ="DAT_UPDATE")
+    @Column(name ="updated_at")
     private Date updatedAt;
 
     public Long getId() {
@@ -63,12 +65,12 @@ public class CompanyEntity {
         this.plans = plans;
     }
 
-    public List<Customer> getCostumers() {
-        return costumers;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setCostumers(List<Customer> costumers) {
-        this.costumers = costumers;
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 
     public Date getCreatedAt() {

@@ -3,32 +3,35 @@ package com.fatec.lab.eng.subme.entities;
 import com.fatec.lab.eng.subme.dto.Adress;
 import com.fatec.lab.eng.subme.dto.Subscription;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "COSTUMERS")
-public class CustumerEntity {
+@Table(name = "customers")
+public class CustomerEntity {
     @Id
     private Long id;
 
-    @Column(name = "CPF")
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "cpf_cnpj")
     private String cpf;
 
-    @Column(name = "ADRESS")
+    @OneToOne
+    @JoinColumn(name = "id_adress")
     private Adress adress;
 
-    @Column(name = "SUBSCRIPTION")
+    //TODO
+    @OneToMany
+    @JoinColumn(name = "id_subscription")
     private List<Subscription> subscriptions;
 
-    @Column(name = "DAT_CREATE")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name ="DAT_UPDATE")
+    @Column(name ="updated_at")
     private Date updatedAt;
 
     public Long getId() {
