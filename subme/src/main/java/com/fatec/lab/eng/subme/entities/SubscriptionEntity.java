@@ -7,24 +7,24 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "SUBSCRIPTIONS")
+@Table(name = "subscriptions")
 public class SubscriptionEntity{
     @Id
     private Long id;
 
-    @Column(name = "CUSTOMER_ID")
+    @Column(name = "id_customer")
     private String customerId;
 
-    @Column(name = "PLAN_ID")
+    @Column(name = "id_plan")
     private String plan_id;
 
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private String status;
 
-    @Column(name = "DAT_CREATE")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name ="DAT_UPDATE")
+    @Column(name ="updated_at")
     private Date updatedAt;
 
     public Long getId() {

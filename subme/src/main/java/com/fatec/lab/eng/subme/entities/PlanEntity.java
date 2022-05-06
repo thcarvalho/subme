@@ -7,27 +7,27 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "PLANS")
+@Table(name = "plans")
 public class PlanEntity {
     @Id
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private String price;
 
-    @Column(name = "IS_ACTIVE")
+    @Column(name = "is_active")
     private boolean isActive;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "DAT_CREATE")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name ="DAT_UPDATE")
+    @Column(name ="updated_at")
     private Date updatedAt;
 
     public Long getId() {

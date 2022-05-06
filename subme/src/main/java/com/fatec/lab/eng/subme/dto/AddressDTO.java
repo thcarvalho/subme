@@ -1,21 +1,11 @@
 package com.fatec.lab.eng.subme.dto;
 
-public class AddressDTO extends RegisterDTO {
+public class Adress extends Register{
 	private String street;
 	private int number;
 	private String city;
-	private String state;
+	private String State;
 	private String zipcode;
-
-	public AddressDTO() {}
-
-	public AddressDTO(String street, int number, String city, String state, String zipcode) {
-		this.street = street;
-		this.number = number;
-		this.city = city;
-		this.state = state;
-		this.zipcode = zipcode;
-	}
 
 	public String getStreet() {
 		return street;
@@ -36,10 +26,10 @@ public class AddressDTO extends RegisterDTO {
 		this.city = city;
 	}
 	public String getState() {
-		return state;
+		return State;
 	}
 	public void setState(String state) {
-		this.state = state;
+		State = state;
 	}
 	public String getZipcode() {
 		return zipcode;
@@ -47,6 +37,6 @@ public class AddressDTO extends RegisterDTO {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-	
-	
+
+
 }

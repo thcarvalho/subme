@@ -2,37 +2,35 @@ package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.Subscription;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "INVOICES")
+@Table(name = "invoices")
 public class InvoiceEntity{
     @Id
     private Long id;
 
-    @Column(name = "DUE_DATE")
+    @Column(name = "due_date")
     private Date dueDate;
 
-    @Column(name = "WAS_PAID")
+    @Column(name = "was_paid")
     private boolean wasPaid;
 
-    @Column(name = "VALUE")
+    @Column(name = "value")
     private double value;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "SUBSCRIPTION")
+    @ManyToOne
+    @JoinColumn(name = "id_subscription")
     private Subscription subscription;
 
-    @Column(name = "DAT_CREATE")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name ="DAT_UPDATE")
+    @Column(name ="updated_at")
     private Date updatedAt;
 
     public Long getId() {
