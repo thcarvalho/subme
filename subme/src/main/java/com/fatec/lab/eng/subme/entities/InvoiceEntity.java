@@ -1,6 +1,6 @@
 package com.fatec.lab.eng.subme.entities;
 
-import com.fatec.lab.eng.subme.dto.Subscription;
+import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class InvoiceEntity{
 
     @ManyToOne
     @JoinColumn(name = "id_subscription")
-    private Subscription subscription;
+    private SubscriptionDTO subscription;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -69,11 +69,11 @@ public class InvoiceEntity{
         this.description = description;
     }
 
-    public Subscription getSubscription() {
+    public SubscriptionDTO getSubscriptionDTO() {
         return subscription;
     }
 
-    public void setSubscription(Subscription subscription) {
+    public void setSubscriptionDTO(SubscriptionDTO subscription) {
         this.subscription = subscription;
     }
 

@@ -2,7 +2,7 @@ package com.fatec.lab.eng.subme.services;
 
 import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.InvoiceDTO;
-import com.fatec.lab.eng.subme.entities.CustumerEntity;
+import com.fatec.lab.eng.subme.entities.CustomerEntity;
 import com.fatec.lab.eng.subme.entities.InvoiceEntity;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
 import com.fatec.lab.eng.subme.factories.ModelToDTO;

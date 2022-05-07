@@ -1,7 +1,7 @@
 package com.fatec.lab.eng.subme.entities;
 
-import com.fatec.lab.eng.subme.dto.Adress;
-import com.fatec.lab.eng.subme.dto.Subscription;
+import com.fatec.lab.eng.subme.dto.AddressDTO;
+import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,12 +21,12 @@ public class CustomerEntity {
 
     @OneToOne
     @JoinColumn(name = "id_adress")
-    private Adress adress;
+    private AddressDTO adress;
 
     //TODO
     @OneToMany
     @JoinColumn(name = "id_subscription")
-    private List<Subscription> subscriptions;
+    private List<SubscriptionDTO> subscriptions;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -38,6 +38,18 @@ public class CustomerEntity {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCpf() {
         return cpf;
     }
@@ -46,19 +58,19 @@ public class CustomerEntity {
         this.cpf = cpf;
     }
 
-    public Adress getAdress() {
+    public AddressDTO getAdress() {
         return adress;
     }
 
-    public void setAdress(Adress adress) {
+    public void setAdress(AddressDTO adress) {
         this.adress = adress;
     }
 
-    public List<Subscription> getSubscriptions() {
+    public List<SubscriptionDTO> getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(List<Subscription> subscriptions) {
+    public void setSubscriptions(List<SubscriptionDTO> subscriptions) {
         this.subscriptions = subscriptions;
     }
 

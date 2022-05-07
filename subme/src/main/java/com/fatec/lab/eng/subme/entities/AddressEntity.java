@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "addresses")
-public class AdressEntity {
+public class AddressEntity {
     @Id
     private Long id;
 

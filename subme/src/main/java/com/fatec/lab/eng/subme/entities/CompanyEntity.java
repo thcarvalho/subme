@@ -1,8 +1,8 @@
 package com.fatec.lab.eng.subme.entities;
 
-import com.fatec.lab.eng.subme.dto.Adress;
-import com.fatec.lab.eng.subme.dto.Customer;
-import com.fatec.lab.eng.subme.dto.Plan;
+import com.fatec.lab.eng.subme.dto.AddressDTO;
+import com.fatec.lab.eng.subme.dto.CustomerDTO;
+import com.fatec.lab.eng.subme.dto.PlanDTO;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,14 +22,14 @@ public class CompanyEntity {
 
     @OneToOne
     @JoinColumn(name = "id_adress")
-    private Adress adress;
+    private AddressDTO adress;
 
     @OneToMany
     @JoinColumn(name = "id_plan")
-    private List<Plan> plans;
+    private List<PlanDTO> plans;
     @OneToMany
     @JoinColumn(name = "id_customer")
-    private List<Customer> customers;
+    private List<CustomerDTO> customers;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -49,27 +49,27 @@ public class CompanyEntity {
         this.cnpj = cnpj;
     }
 
-    public Adress getAdress() {
+    public AddressDTO getAdress() {
         return adress;
     }
 
-    public void setAdress(Adress adress) {
+    public void setAdress(AddressDTO adress) {
         this.adress = adress;
     }
 
-    public List<Plan> getPlans() {
+    public List<PlanDTO> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<Plan> plans) {
+    public void setPlans(List<PlanDTO> plans) {
         this.plans = plans;
     }
 
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(List<CustomerDTO> customers) {
         this.customers = customers;
     }
 

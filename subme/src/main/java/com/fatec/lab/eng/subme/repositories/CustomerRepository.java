@@ -1,27 +1,27 @@
 package com.fatec.lab.eng.subme.repositories;
 
-import com.fatec.lab.eng.subme.entities.CustumerEntity;
+import com.fatec.lab.eng.subme.entities.CustomerEntity;
 
 import java.util.List;
 
-public class CustomerRepository implements IBaseRepository<CustumerEntity>{
+public class CustomerRepository implements IBaseRepository<CustomerEntity>{
     @Override
-    public List<CustumerEntity> GetAll() {
+    public List<CustomerEntity> GetAll() {
         return null;
     }
 
     @Override
-    public CustumerEntity GetById(int id) {
+    public CustomerEntity GetById(int id) {
         return null;
     }
 
     @Override
-    public void Add(CustumerEntity model) {
+    public void Add(CustomerEntity model) {
 
     }
 
     @Override
-    public void Update(CustumerEntity model, int id) {
+    public void Update(CustomerEntity model, int id) {
 
     }
 

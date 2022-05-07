@@ -4,7 +4,7 @@ import com.fatec.lab.eng.subme.dto.*;
 import com.fatec.lab.eng.subme.entities.*;
 
 public class ModelToDTO {
-    public static AddressDTO addressFactory(AdressEntity entity) {
+    public static AddressDTO addressFactory(AddressEntity entity) {
         return new AddressDTO();
     }
 
@@ -12,7 +12,7 @@ public class ModelToDTO {
         return new CompanyDTO();
     }
 
-    public static CustomerDTO customerFactory(CustumerEntity entity) {
+    public static CustomerDTO customerFactory(CustomerEntity entity) {
         return new CustomerDTO();
     }
 
