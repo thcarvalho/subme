@@ -4,12 +4,15 @@ import com.fatec.lab.eng.subme.dto.AddressDTO;
 import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "customers")
-public class CustomerEntity {
+public class CustomerEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     private Long id;
 
@@ -21,12 +24,15 @@ public class CustomerEntity {
 
     @OneToOne
     @JoinColumn(name = "id_adress")
-    private AddressDTO adress;
+    private AddressEntity adress;
 
-    //TODO
+    @OneToOne
+    @JoinColumn(name = "id_company")
+    private CompanyEntity company;
+
     @OneToMany
     @JoinColumn(name = "id_subscription")
-    private List<SubscriptionDTO> subscriptions;
+    private List<SubscriptionEntity> subscriptions;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -58,35 +64,37 @@ public class CustomerEntity {
         this.cpf = cpf;
     }
 
-    public AddressDTO getAdress() {
+    public AddressEntity getAdress() {
         return adress;
     }
 
-    public void setAdress(AddressDTO adress) {
+    public void setAdress(AddressEntity adress) {
         this.adress = adress;
     }
 
-    public List<SubscriptionDTO> getSubscriptions() {
+    public List<SubscriptionEntity> getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(List<SubscriptionDTO> subscriptions) {
+    public void setSubscriptions(List<SubscriptionEntity> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+
+    public CompanyEntity getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

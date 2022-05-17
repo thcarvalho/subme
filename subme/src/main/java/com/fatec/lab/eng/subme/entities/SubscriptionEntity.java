@@ -1,14 +1,14 @@
 package com.fatec.lab.eng.subme.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "subscriptions")
-public class SubscriptionEntity{
+public class SubscriptionEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     private Long id;
 
