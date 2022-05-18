@@ -1,0 +1,11 @@
+<div class="sidenav-container">
+  <div class="sidenav-logo">
+    <h1>Logo</h1>
+  </div>
+  <div class="list-container">
+    <div class="list-item" fxLayout.gt-lg="row" fxLayoutGap.gt-lg="1.5em" *ngFor="let item of items" [routerLink]="item.url" routerLinkActive="list-item-selected">
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.name}}</span>
+    </div>
+  </div>
+</div>
