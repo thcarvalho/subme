@@ -1,13 +1,13 @@
 package com.fatec.lab.eng.subme.entities;
 
-import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "invoices")
-public class InvoiceEntity{
+public class InvoiceEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     private Long id;
 
@@ -25,7 +25,7 @@ public class InvoiceEntity{
 
     @ManyToOne
     @JoinColumn(name = "id_subscription")
-    private SubscriptionDTO subscription;
+    private SubscriptionEntity subscription;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -69,11 +69,11 @@ public class InvoiceEntity{
         this.description = description;
     }
 
-    public SubscriptionDTO getSubscriptionDTO() {
+    public SubscriptionEntity getSubscriptionDTO() {
         return subscription;
     }
 
-    public void setSubscriptionDTO(SubscriptionDTO subscription) {
+    public void setSubscriptionDTO(SubscriptionEntity subscription) {
         this.subscription = subscription;
     }
 

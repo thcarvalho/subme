@@ -1,15 +1,18 @@
 package com.fatec.lab.eng.subme.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fatec.lab.eng.subme.dto.AddressDTO;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "addresses")
-public class AddressEntity {
+public class AddressEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "street")
@@ -24,14 +27,31 @@ public class AddressEntity {
     @Column(name = "state")
     private String state;
 
+    @Column(name = "country")
+    private String country;
+
     @Column(name = "zipcode")
     private String zipcode;
 
     @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name ="created_at")
+    @Column(name ="updated_at")
     private Date updatedAt;
+
+    AddressEntity(){
+    }
+
+    public AddressEntity(AddressDTO addressDTO) {
+        this.street = addressDTO.getStreet();
+        this.number = addressDTO.getNumber();
+        this.city = addressDTO.getCity();
+        this.state = addressDTO.getState();
+        this.country = addressDTO.getCountry();
+        this.zipcode = addressDTO.getZipcode();
+        this.createdAt = null;
+        this.updatedAt = null;
+    }
 
     public Long getId() {
         return id;
@@ -68,6 +88,12 @@ public class AddressEntity {
     public void setState(String state) {
         this.state = state;
     }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {this.country = country;}
 
     public String getZipcode() {
         return zipcode;

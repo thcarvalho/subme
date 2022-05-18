@@ -2,57 +2,49 @@ package com.fatec.lab.eng.subme.services;
 
 import com.fatec.lab.eng.subme.dto.CompanyDTO;
 import com.fatec.lab.eng.subme.entities.CompanyEntity;
+import com.fatec.lab.eng.subme.entities.UserEntity;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
 import com.fatec.lab.eng.subme.factories.ModelToDTO;
+import com.fatec.lab.eng.subme.repositories.AddressRepository;
 import com.fatec.lab.eng.subme.repositories.CompanyRepository;
-import com.fatec.lab.eng.subme.services.interfaces.ICompanyService;
+import com.fatec.lab.eng.subme.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class CompanyService implements ICompanyService {
+@Service
+public class CompanyService {
+    @Autowired
     private CompanyRepository companyRepository;
 
-    public CompanyService() {
-        this.companyRepository = new CompanyRepository();
-    }
+    @Autowired
+    private UserRepository userRepository;
 
-    @Override
-    public List<CompanyDTO> GetAll() {
-        List<CompanyEntity> companies = companyRepository.GetAll();
-        List<CompanyDTO> dtos = new ArrayList<>();
-        for (CompanyEntity entity : companies) {
-            dtos.add(ModelToDTO.companyFactory(entity));
+    @Autowired
+    AddressRepository addressRepository;
+
+    public List<CompanyDTO> toList(){
+        List<CompanyDTO> companyDTOS = new ArrayList<>();
+        for (CompanyEntity entity : companyRepository.findAll()){
+            companyDTOS.add(ModelToDTO.companyFactory(entity));
         }
-        return dtos;
+        return companyDTOS;
     }
 
-    @Override
-    public CompanyDTO GetById(int id) {
-        CompanyEntity company = companyRepository.GetById(id);
-        return ModelToDTO.companyFactory(company);
-    }
-
-    @Override
-    public void Add(CompanyDTO model) {
-        CompanyEntity company = DTOToModel.companyFactory(model);
-        companyRepository.Add(company);
-    }
-
-    @Override
-    public void Update(CompanyDTO model, int id) {
-        CompanyEntity current = companyRepository.GetById(id);
-        if (current == null) return;
-
-        CompanyEntity updated = DTOToModel.companyFactory(model);
-        companyRepository.Update(updated, id);
-    }
-
-    @Override
-    public void Delete(int id) {
-        CompanyEntity company = companyRepository.GetById(id);
-        if (company == null) return;
-
-        companyRepository.Delete(id);
+    public ResponseEntity<?> create(CompanyDTO companyDTO){
+        if (companyRepository.existsByCnpj(companyDTO.getCnpj())){
+            return ResponseEntity.badRequest().body("CNPJ já cadastrado!");
+        }else if (userRepository.existsByUsername(companyDTO.getUsername())){
+            return ResponseEntity.badRequest().body("Username já existe!");
+        }
+        UserEntity userEntity = DTOToModel.userFactory(companyDTO.getName(), companyDTO.getEmail(),
+                companyDTO.getUsername(), companyDTO.getPassword());
+        userRepository.save(userEntity);
+        CompanyEntity companyEntity = DTOToModel.companyFactory(companyDTO, userEntity);
+        addressRepository.save(companyEntity.getAdress());
+        companyRepository.save(companyEntity);
+        return ResponseEntity.ok().body(companyEntity);
     }
 }
