@@ -1,0 +1,27 @@
+.sidenav-container {
+  $transition-duration: 0.3s;
+  background-color: #c2c2c2;
+  height: 100%;
+  padding: 1em 0;
+  .sidenav-logo {
+
+  }
+  .list-container {
+    margin-top: 10em;
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    .list-item {
+      padding: 0 1em;
+      margin-top: 2em;
+    }
+    .list-item-selected {
+      color: white;
+    }
+    .list-item:hover {
+      transition: background-color $transition-duration;
+      cursor: pointer;
+      color: white;
+    }
+  }
+}
