@@ -4,13 +4,8 @@ import com.fatec.lab.eng.subme.dto.*;
 import com.fatec.lab.eng.subme.entities.*;
 
 public class DTOToModel {
-    public static AddressEntity addressFactory(AddressDTO dto) {
-        AddressEntity entity = new AddressEntity();
-        return entity;
-    }
-
-    public static CompanyEntity companyFactory(CompanyDTO dto) {
-        return new CompanyEntity();
+    public static CompanyEntity companyFactory(CompanyDTO dto, UserEntity user) {
+        return new CompanyEntity(dto, user);
     }
 
     public static CustomerEntity customerFactory(CustomerDTO dto) {
@@ -25,7 +20,15 @@ public class DTOToModel {
         return new PlanEntity();
     }
 
+    public static UserEntity userFactory(String name, String email, String username, String password) {
+        return new UserEntity(name, email, username, password);
+    }
+
     public static SubscriptionEntity subscriptionFactory(SubscriptionDTO dto) {
         return new SubscriptionEntity();
+    }
+
+    public static AddressEntity addressFactory(AddressDTO dto){
+        return new AddressEntity(dto);
     }
 }

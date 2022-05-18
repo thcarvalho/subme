@@ -1,14 +1,14 @@
 package com.fatec.lab.eng.subme.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "plans")
-public class PlanEntity {
+public class PlanEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     private Long id;
 
@@ -23,6 +23,9 @@ public class PlanEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "id_company")
+    private CompanyEntity companyEntity;
 
     @Column(name = "created_at")
     private Date createdAt;

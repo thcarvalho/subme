@@ -1,15 +1,16 @@
 package com.fatec.lab.eng.subme.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name ="users")
-public class UserEntity{
+public class UserEntity implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -28,6 +29,19 @@ public class UserEntity{
 
     @Column(name ="updated_at")
     private Date updatedAt;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String name, String email, String username, String password) {
+        this.id = null;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.createdAt = null;
+        this.updatedAt = null;
+    }
 
     public Long getId() {
         return id;

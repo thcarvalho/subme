@@ -1,20 +1,36 @@
 package com.fatec.lab.eng.subme.dto;
 
+import com.fatec.lab.eng.subme.entities.CompanyEntity;
+import com.fatec.lab.eng.subme.factories.ModelToDTO;
+
 import java.util.List;
 
 public class CompanyDTO extends SystemUserDTO {
 	private String cnpj;
-	private AddressDTO adress;
-	private List<PlanDTO> plans;
-	private List<CustomerDTO> customers;
+	private AddressDTO address;
 
 	public CompanyDTO() {}
 
-	public CompanyDTO(String cnpj, AddressDTO adress, List<PlanDTO> plans, List<CustomerDTO> customers) {
+	public CompanyDTO(String cnpj, String name, String email, AddressDTO adress,
+					  String username, String password) {
 		this.cnpj = cnpj;
-		this.adress = adress;
-		this.plans = plans;
-		this.customers = customers;
+		this.setName(name);
+		this.setEmail(email);
+		this.address = adress;
+		this.setUsername(username);
+		this.setPassword(password);
+	}
+
+	public CompanyDTO(CompanyEntity companyEntity) {
+		this.setId(companyEntity.getId());
+		this.cnpj = companyEntity.getCnpj();
+		this.setName(companyEntity.getUserEntity().getName());
+		this.setEmail(companyEntity.getUserEntity().getEmail());
+		this.address = ModelToDTO.addressFactory(companyEntity.getAdress());
+		this.setUsername(companyEntity.getUserEntity().getUsername());
+		this.setPassword(companyEntity.getUserEntity().getPassword());
+		this.setCreatedAt(companyEntity.getCreatedAt());
+		this.setUpdatedAt(companyEntity.getUpdatedAt());
 	}
 
 	public String getCnpj() {
@@ -23,22 +39,11 @@ public class CompanyDTO extends SystemUserDTO {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-	public AddressDTO getAdress() {
-		return adress;
+	public AddressDTO getAddress() {
+		return address;
 	}
-	public void setAdress(AddressDTO adress) {
-		this.adress = adress;
+	public void setAddress(AddressDTO adress) {
+		this.address = adress;
 	}
-	public List<PlanDTO> getPlans() {
-		return plans;
-	}
-	public void setPlans(List<PlanDTO> plans) {
-		this.plans = plans;
-	}
-	public List<CustomerDTO> getCustomers() {
-		return customers;
-	}
-	public void setCustomers(List<CustomerDTO> customers) {
-		this.customers = customers;
-	}
+
 	}
