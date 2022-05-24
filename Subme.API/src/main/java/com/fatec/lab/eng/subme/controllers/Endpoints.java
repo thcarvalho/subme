@@ -6,6 +6,7 @@ import com.fatec.lab.eng.subme.entities.CustomerEntity;
 import com.fatec.lab.eng.subme.entities.InvoiceEntity;
 import com.fatec.lab.eng.subme.entities.PlanEntity;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
+import com.fatec.lab.eng.subme.factories.ModelToDTO;
 import com.fatec.lab.eng.subme.repositories.CompanyRepository;
 import com.fatec.lab.eng.subme.repositories.CustomerRepository;
 import com.fatec.lab.eng.subme.repositories.PlanRepository;
@@ -67,6 +68,27 @@ public class Endpoints {
     public ResponseEntity<?> createCustomer(@RequestBody SubscriptionDTO subscriptionDTO){
         return customerService.create(subscriptionDTO);
     }
+
+    @GetMapping("/company/search/{id}")
+    public ResponseEntity<CompanyDTO> searchCompanyById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.companyFactory(companyRepository.findById(id).get()));
+    }
+
+    @GetMapping("/plan/search/{id}")
+    public ResponseEntity<PlanDTO> searchPlanById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.planFactory(planRepository.findById(id).get()));
+    }
+
+    @GetMapping("/customer/search/{id}")
+    public ResponseEntity<CustomerDTO> searchCustomerById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.customerFactory(customerRepository.findById(id).get()));
+    }
+
+    /* TRABALHANDO NESSE AINDA
+    @GetMapping("/subscription/search/{id}")
+    public ResponseEntity<SubscriptionDTO> searchSubscriptionById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.subscriptionFactory(subscriptionRepository.findById(id).get()));
+    }*/
 
 
     @GetMapping("/customers")
