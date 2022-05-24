@@ -15,7 +15,7 @@ public class ModelToDTO {
         return new SystemUserDTO(userEntity);
     }
     public static CustomerDTO customerFactory(CustomerEntity entity) {
-        return new CustomerDTO();
+        return new CustomerDTO(entity);
     }
 
     public static InvoiceDTO invoiceFactory(InvoiceEntity entity) {
@@ -23,10 +23,10 @@ public class ModelToDTO {
     }
 
     public static PlanDTO planFactory(PlanEntity entity) {
-        return new PlanDTO();
+        return new PlanDTO(entity);
     }
 
-    public static SubscriptionDTO subscriptionFactory(SubscriptionEntity entity) {
-        return new SubscriptionDTO();
+    public static SubscriptionDTO subscriptionFactory(SubscriptionEntity entity, CustomerDTO customerDTO, PlanDTO planDTO) {
+        return new SubscriptionDTO(entity, customerDTO, planDTO);
     }
 }

@@ -1,5 +1,8 @@
 package com.fatec.lab.eng.subme.entities;
 
+import com.fatec.lab.eng.subme.dto.PlanDTO;
+import com.fatec.lab.eng.subme.utils.SubscriptionStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,16 +13,17 @@ public class SubscriptionEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "id_customer")
-    private String customerId;
+    private Long customerId;
 
     @Column(name = "id_plan")
-    private String plan_id;
+    private Long planId;
 
     @Column(name = "status")
-    private String status;
+    private int status;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -27,31 +31,40 @@ public class SubscriptionEntity implements Serializable {
     @Column(name ="updated_at")
     private Date updatedAt;
 
+    public SubscriptionEntity() {
+    }
+
+    public SubscriptionEntity(CustomerEntity customerEntity, PlanEntity planEntity, int status) {
+        this.customerId = customerEntity.getId();
+        this.planId = planEntity.getId();
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public String getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public String getPlan_id() {
-        return plan_id;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setPlan_id(String plan_id) {
-        this.plan_id = plan_id;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

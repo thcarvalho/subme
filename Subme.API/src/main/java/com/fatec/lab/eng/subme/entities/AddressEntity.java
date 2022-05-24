@@ -49,8 +49,6 @@ public class AddressEntity implements Serializable {
         this.state = addressDTO.getState();
         this.country = addressDTO.getCountry();
         this.zipcode = addressDTO.getZipcode();
-        this.createdAt = null;
-        this.updatedAt = null;
     }
 
     public Long getId() {

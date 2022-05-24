@@ -1,10 +1,17 @@
 package com.fatec.lab.eng.subme.services;
 
 import com.fatec.lab.eng.subme.dto.CustomerDTO;
+import com.fatec.lab.eng.subme.dto.PlanDTO;
+import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 import com.fatec.lab.eng.subme.entities.CustomerEntity;
+import com.fatec.lab.eng.subme.entities.PlanEntity;
+import com.fatec.lab.eng.subme.factories.DTOToModel;
 import com.fatec.lab.eng.subme.factories.ModelToDTO;
+import com.fatec.lab.eng.subme.repositories.AddressRepository;
 import com.fatec.lab.eng.subme.repositories.CustomerRepository;
+import com.fatec.lab.eng.subme.repositories.PlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +22,27 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
+
+    @Autowired
+    private PlanRepository planRepository;
+
+    public ResponseEntity<?> create(SubscriptionDTO subscriptionDTO){
+        if(customerRepository.existsByCpf(subscriptionDTO.getCustomer().getCpf())){
+            return ResponseEntity.badRequest().body("CPF ou CNPJ já cadastrado!");
+        }
+        CustomerEntity customerEntity = DTOToModel.customerFactory(subscriptionDTO.getCustomer());
+        addressRepository.save(customerEntity.getAdress());
+        customerRepository.save(customerEntity);
+        //PlanEntity planEntity = planRepository.findByName(subscriptionDTO.getPlan().getName());
+        PlanEntity planEntity = planRepository.findById(subscriptionDTO.getPlan().getId()).get();
+        return ResponseEntity.ok().body(subscriptionService.create(customerEntity, planEntity, subscriptionDTO.getStatus()));
+    }
+
     public List<CustomerDTO> toList(){
         List<CustomerDTO> customerDTOS = new ArrayList<>();
         for (CustomerEntity entity : customerRepository.findAll()){
@@ -22,6 +50,7 @@ public class CustomerService {
         }
         return customerDTOS;
     }
+
 
 
 }

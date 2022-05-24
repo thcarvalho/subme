@@ -1,37 +1,48 @@
 package com.fatec.lab.eng.subme.dto;
 
+import com.fatec.lab.eng.subme.entities.CustomerEntity;
+import com.fatec.lab.eng.subme.factories.ModelToDTO;
+
 import java.util.List;
 
 public class CustomerDTO extends UserDTO {
 	private String cpf;
 	private AddressDTO address;
-	private List<SubscriptionDTO> subscriptions;
+	private Long companyId;
 
 	public CustomerDTO() {}
 
-	public CustomerDTO(String cpf, AddressDTO address, List<SubscriptionDTO> subscriptions) {
-		this.cpf = cpf;
-		this.address = address;
-		this.subscriptions = subscriptions;
+	public CustomerDTO(CustomerEntity customerEntity) {
+		this.setId(customerEntity.getId());
+		this.setName(customerEntity.getName());
+		this.cpf = customerEntity.getCpf();
+		this.address = ModelToDTO.addressFactory(customerEntity.getAdress());
+		this.companyId = customerEntity.getIdCompany();
+		this.setCreatedAt(customerEntity.getCreatedAt());
+		this.setUpdatedAt(customerEntity.getUpdatedAt());
 	}
 
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public AddressDTO getAdress() {
+
+	public AddressDTO getAddress() {
 		return address;
 	}
-	public void setAdress(AddressDTO adress) {
-		this.address = adress;
+
+	public void setAddress(AddressDTO address) {
+		this.address = address;
 	}
-	public List<SubscriptionDTO> getSubscriptions() {
-		return subscriptions;
+
+	public Long getCompanyId() {
+		return companyId;
 	}
-	public void setSubscriptions(List<SubscriptionDTO> subscriptions) {
-		this.subscriptions = subscriptions;
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
-	
 }

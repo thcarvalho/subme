@@ -49,21 +49,23 @@ public class Endpoints {
     @Autowired
     SubscriptionService subscriptionService;
 
+
+    //cadastra empresa
     @PostMapping("/company/create")
     public ResponseEntity<?> createCompany(@RequestBody CompanyDTO companyDTO){
         return companyService.create(companyDTO);
     }
 
-    @PostMapping("/customer/create")
-    public ResponseEntity<CustomerEntity> createCustomer(@RequestBody CustomerDTO customerDTO){
-        CustomerEntity customerEntity = DTOToModel.customerFactory(customerDTO);
-        return ResponseEntity.ok().body(customerRepository.save(customerEntity));
+    //cadastra planos
+    @PostMapping("/plan/create")
+    public ResponseEntity<?> createPlan(@RequestBody PlanDTO planDTO){
+        return planService.create(planDTO);
     }
 
-    @PostMapping("/plan/create")
-    public ResponseEntity<PlanEntity> createPlan(@RequestBody PlanDTO planDTO){
-        PlanEntity planEntity = DTOToModel.planFactory(planDTO);
-        return ResponseEntity.ok().body(planRepository.save(planEntity));
+    //cadastra cliente vinculando-o com o plano e assim, gerando uma subscription
+    @PostMapping("/customer/create")
+    public ResponseEntity<?> createCustomer(@RequestBody SubscriptionDTO subscriptionDTO){
+        return customerService.create(subscriptionDTO);
     }
 
 
@@ -87,7 +89,7 @@ public class Endpoints {
         return ResponseEntity.ok().body(planService.toList());
     }
 
-    @GetMapping("/Subscriptions")
+    @GetMapping("/subscriptions")
     public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions(){
         return ResponseEntity.ok().body(subscriptionService.toList());
     }

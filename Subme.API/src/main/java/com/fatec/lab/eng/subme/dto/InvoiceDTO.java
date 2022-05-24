@@ -1,5 +1,7 @@
 package com.fatec.lab.eng.subme.dto;
 
+import com.fatec.lab.eng.subme.entities.InvoiceEntity;
+
 import java.util.Date;
 
 public class InvoiceDTO extends RegisterDTO {
@@ -7,16 +9,26 @@ public class InvoiceDTO extends RegisterDTO {
 	private boolean wasPaid;
 	private double value;
 	private String description;
-	private SubscriptionDTO subscription;
+	private Long idSubscription;
 
 	public InvoiceDTO() {}
 
-	public InvoiceDTO(Date dueDate, boolean wasPaid, double value, String description, SubscriptionDTO subscription) {
+	public InvoiceDTO(Date dueDate, boolean wasPaid, double value, String description, Long subscription) {
 		this.dueDate = dueDate;
 		this.wasPaid = wasPaid;
 		this.value = value;
 		this.description = description;
-		this.subscription = subscription;
+		this.idSubscription = subscription;
+	}
+
+	public InvoiceDTO(InvoiceEntity invoiceEntity) {
+		this.setId(invoiceEntity.getId());
+		this.dueDate = invoiceEntity.getDueDate();
+		this.wasPaid = invoiceEntity.isWasPaid();
+		this.value = invoiceEntity.getValue();
+		this.idSubscription = invoiceEntity.getSubscriptionId();
+		this.setCreatedAt(invoiceEntity.getCreatedAt());
+		this.setUpdatedAt(invoiceEntity.getUpdatedAt());
 	}
 
 	public Date getDueDate() {
@@ -43,11 +55,11 @@ public class InvoiceDTO extends RegisterDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public SubscriptionDTO getSubscription() {
-		return subscription;
+	public Long getSubscription() {
+		return idSubscription;
 	}
-	public void setSubscription(SubscriptionDTO subscription) {
-		this.subscription = subscription;
+	public void setSubscription(Long subscription) {
+		this.idSubscription = idSubscription;
 	}
 	
 	

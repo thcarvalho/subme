@@ -1,7 +1,9 @@
 package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.AddressDTO;
+import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
+import com.fatec.lab.eng.subme.factories.DTOToModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +16,7 @@ public class CustomerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -26,19 +29,28 @@ public class CustomerEntity implements Serializable {
     @JoinColumn(name = "id_adress")
     private AddressEntity adress;
 
-    @OneToOne
-    @JoinColumn(name = "id_company")
-    private CompanyEntity company;
 
-    @OneToMany
-    @JoinColumn(name = "id_subscription")
-    private List<SubscriptionEntity> subscriptions;
+    @JoinColumn(name = "id_company")
+    private Long idCompany;
 
     @Column(name = "created_at")
     private Date createdAt;
 
     @Column(name ="updated_at")
     private Date updatedAt;
+
+    public CustomerEntity() {
+    }
+
+    public CustomerEntity(CustomerDTO customerDTO) {
+        this.id = customerDTO.getId();
+        this.name = customerDTO.getName();
+        this.cpf = customerDTO.getCpf();
+        this.adress = DTOToModel.addressFactory(customerDTO.getAddress());
+        this.idCompany = customerDTO.getCompanyId();
+        this.createdAt = customerDTO.getCreatedAt();
+        this.updatedAt = customerDTO.getUpdatedAt();
+    }
 
     public Long getId() {
         return id;
@@ -72,20 +84,12 @@ public class CustomerEntity implements Serializable {
         this.adress = adress;
     }
 
-    public List<SubscriptionEntity> getSubscriptions() {
-        return subscriptions;
+    public Long getIdCompany() {
+        return idCompany;
     }
 
-    public void setSubscriptions(List<SubscriptionEntity> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
-
-    public CompanyEntity getCompany() {
-        return company;
-    }
-
-    public void setCompany(CompanyEntity company) {
-        this.company = company;
+    public void setIdCompany(Long idCompany) {
+        this.idCompany = idCompany;
     }
 
     public Date getCreatedAt() {
