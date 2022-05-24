@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SubscriptionRepository extends JpaRepository<SubscriptionEntity, Long> {
-    boolean existsBySubscriptionId(Long subscriptionId);
-    List<SubscriptionEntity> findBySubscriptionId(Long subscriptionId);
+
+    List<SubscriptionEntity> findByCustomerId(Long customerId);
 }
