@@ -1,1 +1,12 @@
-<p>modal works!</p>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon>{{config.icon || 'info'}}</mat-icon>
+    <span>{{config.title}}</span>
+  </div>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div>
+  <ng-template></ng-template>
+</div>

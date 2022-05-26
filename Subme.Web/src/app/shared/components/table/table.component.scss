@@ -1,0 +1,29 @@
+table {
+  width: 100%;
+  color: black !important;
+  background-color: #ECEBEB;
+
+  th {
+    padding: 0 1em;
+    font-weight: bold;
+    color: black !important;
+    background-color: #EDE6E6;
+  }
+  td {
+    height: 32px;
+    padding: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  tr:hover {
+    background-color: #dbdbdb;
+  }
+  tr.mat-row {
+    height: 3em;
+  }
+  tr.mat-header-row {
+    height: 3em;
+  }
+}

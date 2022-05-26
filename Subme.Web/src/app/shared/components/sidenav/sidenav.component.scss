@@ -1,8 +1,12 @@
 .sidenav-container {
-  $transition-duration: 0.3s;
+  $transition-duration: 0.5s;
   background-color: #c2c2c2;
   height: 100%;
   padding: 1em 0;
+
+  -webkit-box-shadow: 8px -1px 16px -1px rgba(0,0,0,0.36);
+  box-shadow: 8px -1px 16px -1px rgba(0,0,0,0.36);
+
   .sidenav-logo {
 
   }
