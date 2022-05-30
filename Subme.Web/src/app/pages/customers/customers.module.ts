@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CustomersFormComponent } from './customers-form/customers-form.component';
+import { ModalModule } from 'src/app/shared/components/modal/modal.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -24,7 +26,13 @@ import { CustomersFormComponent } from './customers-form/customers-form.componen
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
-  ]
+    MatSelectModule,
+    MatDialogModule,
+    ModalModule
+  ],
+  exports: [
+    CustomersComponent,
+    CustomersFormComponent,
+  ],
 })
 export class CustomersModule { }

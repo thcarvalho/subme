@@ -26,4 +26,18 @@ table {
   tr.mat-header-row {
     height: 3em;
   }
+
+  td.table-actions {
+    margin-right: 1em;
+    margin-left: -5em;
+    margin-top: 0.7em;
+    padding: 0 1em;
+    color: #505050;
+    height: 100%;
+
+    button.table-action-btn:hover {
+      background-color: #c4c4c4;
+    }
+  }
+
 }

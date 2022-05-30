@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalConfig } from 'src/app/shared/components/modal/classes/modal-config';
+import { ModalService } from 'src/app/shared/components/modal/services/modal.service';
+import { TableMenuOptions } from 'src/app/shared/components/table/classes/table-menu-options';
+import { CustomersFormComponent } from './customers-form/customers-form.component';
 
 @Component({
   selector: 'app-customers',
@@ -7,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
   columns: any[] = [];
+  tableOptions!: TableMenuOptions;
   data: any[] = [
     {
       email: 'asd@asd',
@@ -64,17 +69,37 @@ export class CustomersComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
-    this.setColumns();
+    this.setTable();
   }
 
-  setColumns(): void {
+  setTable(): void {
+    this.tableOptions = {
+      deleteAction: (id) => this.deleteCustomer(id),
+      editAction: (id) => this.goToCustomersForm(id)
+    };
     this.columns = [
       ["id", "ID"],
       ["name", "NOME"],
       ["email", "E-MAIL"]
-    ]
+    ];
   }
+
+  deleteCustomer(id: number): void {
+
+  }
+
+  goToCustomersForm(id?: number): void {
+    const config = new ModalConfig()
+    config.componentToRender = CustomersFormComponent;
+    config.title = "Novo Cliente";
+    config.icon = "people";
+    config.data = id ? this.data.find(x => x.id == id) : null;
+    this.modalService.open(config);
+  }
+
 }

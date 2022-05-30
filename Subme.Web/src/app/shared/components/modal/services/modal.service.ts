@@ -1,23 +1,24 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { ModalConfig } from '../classes/modal-config';
-import { ModalComponent } from '../modal.component';
+import { take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ModalService {
-
   closed = new EventEmitter<any>();
 
-  constructor(
-    private matDialog: MatDialog
-  ) { }
+  constructor(private matDialog: MatDialog) {}
 
-  open<TData, TOutput>(config: ModalConfig): Observable<TOutput | undefined> {
-    const data: ModalConfig<TData> = { ...config };
-    const bottomSheet = this.matDialog.open<ModalComponent, ModalConfig<TData>, TOutput>(ModalComponent, {...config, data});
-    return bottomSheet.afterClosed();
+  open(config: ModalConfig): void {
+    const data: ModalConfig = { ...config };
+    const dialog = this.matDialog.open(config.componentToRender, { ...config, data });
+
+    dialog.afterClosed()
+      .pipe(take(1))
+      .subscribe((result: boolean) => {
+        this.closed.emit(result);
+      });
   }
 }

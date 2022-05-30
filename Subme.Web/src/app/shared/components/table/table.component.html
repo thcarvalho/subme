@@ -4,6 +4,17 @@
       <th mat-header-cell *matHeaderCellDef>{{item[1]}}</th>
       <td *matCellDef="let element">{{(element[item[0]])}}</td>
     </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td class="table-actions" *matCellDef="let element" fxLayoutAlign="end center">
+        <button mat-icon-button class="table-action-btn" (click)="onEdit(element.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="table-action-btn" (click)="onDelete(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalConfig } from 'src/app/shared/components/modal/classes/modal-config';
+import { ModalService } from 'src/app/shared/components/modal/services/modal.service';
+import { PlansFormComponent } from './plans-form/plans-form.component';
 
 @Component({
   selector: 'app-plans',
@@ -58,7 +61,9 @@ export class PlansComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.setColumns();
@@ -71,6 +76,14 @@ export class PlansComponent implements OnInit {
       ["price", "PREÇO"],
       ["status", "STATUS"],
     ]
+  }
+
+  goToPlansForm(): void {
+    const config = new ModalConfig()
+    config.componentToRender = PlansFormComponent;
+    config.title = "Novo Plano";
+    config.icon = "menu_book";
+    this.modalService.open(config);
   }
 
 }

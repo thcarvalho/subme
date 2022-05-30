@@ -17,6 +17,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatIconModule,
     FlexLayoutModule,
-  ]
+  ],
+  exports: [
+    ModalComponent
+  ],
 })
 export class ModalModule { }

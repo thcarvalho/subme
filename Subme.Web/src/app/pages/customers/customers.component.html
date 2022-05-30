@@ -1,19 +1,19 @@
 <div class="container">
-  <div fxLayoutAlign.gt-lg="end">
-    <button class="add-btn" mat-raised-button>NOVO CLIENTE</button>
+  <div fxLayoutAlign="end">
+    <button class="add-btn" (click)="goToCustomersForm()"  mat-raised-button>NOVO CLIENTE</button>
   </div>
-  <div fxLayoutGap.gt-lg="0.4em">
-    <mat-form-field appearance="fill" fxFlex.gt-lg="10">
+  <div fxLayoutGap="0.4em">
+    <mat-form-field appearance="fill" fxFlex="10">
       <mat-label>Pesquisa</mat-label>
       <mat-select>
         <mat-option value="one">Nome</mat-option>
         <mat-option value="two">E-mail</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill" fxFlex.gt-lg="90">
+    <mat-form-field appearance="fill" fxFlex="90">
       <mat-label>Digite aqui sua pesquisa...</mat-label>
       <input matInput type="text">
     </mat-form-field>
   </div>
-  <app-table [columns]="columns" [data]="data"></app-table>
+  <app-table [menuOptions]="tableOptions" [columns]="columns" [data]="data"></app-table>
 </div>

@@ -12,4 +12,7 @@ export class CustomersFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  saveCustomer(): void {
+
+  }
 }

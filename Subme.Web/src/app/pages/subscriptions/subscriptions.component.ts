@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalConfig } from 'src/app/shared/components/modal/classes/modal-config';
+import { ModalService } from 'src/app/shared/components/modal/services/modal.service';
+import { SubscriptionsFormComponent } from './subscriptions-form/subscriptions-form.component';
 
 @Component({
   selector: 'app-subscriptions',
@@ -46,7 +49,9 @@ export class SubscriptionsComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.setColumns();
@@ -59,5 +64,13 @@ export class SubscriptionsComponent implements OnInit {
       ["plan", "PLANO"],
       ["status", "STATUS"],
     ]
+  }
+
+  goToSubscriptionsForm(): void {
+    const config = new ModalConfig()
+    config.componentToRender = SubscriptionsFormComponent;
+    config.title = "Nova Assinatura";
+    config.icon = "request_page"
+    this.modalService.open(config);
   }
 }

@@ -1,0 +1,20 @@
+<app-modal>
+  <div fxLayout="column" fxLayoutGap=".1em">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome do Plano</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Preço</mat-label>
+      <input matInput placeholder="R$0.00" type="text">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Descrição do plano</mat-label>
+      <textarea matInput type="text"></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="end center">
+    <button mat-raised-button color="warn" (click)="savePlan()">SALVAR</button>
+    <button mat-button mat-dialog-close>CANCELAR</button>
+  </div>
+</app-modal>
