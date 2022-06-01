@@ -36,7 +36,7 @@ public class CustomerService {
             return ResponseEntity.badRequest().body("CPF ou CNPJ já cadastrado!");
         }
         CustomerEntity customerEntity = DTOToModel.customerFactory(subscriptionDTO.getCustomer());
-        addressRepository.save(customerEntity.getAdress());
+        addressRepository.save(customerEntity.getaddress());
         customerRepository.save(customerEntity);
         //PlanEntity planEntity = planRepository.findByName(subscriptionDTO.getPlan().getName());
         PlanEntity planEntity = planRepository.findById(subscriptionDTO.getPlan().getId()).get();

@@ -1,5 +1,8 @@
 package com.fatec.lab.eng.subme.entities;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +14,7 @@ public class UserEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     private Long id;
 
     @Column(name = "name")
@@ -24,9 +28,11 @@ public class UserEntity implements Serializable{
     @Column(name = "password")
     private String password;
 
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -39,8 +45,8 @@ public class UserEntity implements Serializable{
         this.email = email;
         this.username = username;
         this.password = password;
-        this.createdAt = null;
-        this.updatedAt = null;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {

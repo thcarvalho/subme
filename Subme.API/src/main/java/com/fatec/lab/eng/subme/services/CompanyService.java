@@ -43,7 +43,7 @@ public class CompanyService {
                 companyDTO.getUsername(), companyDTO.getPassword());
         userRepository.save(userEntity);
         CompanyEntity companyEntity = DTOToModel.companyFactory(companyDTO, userEntity);
-        addressRepository.save(companyEntity.getAdress());
+        //addressRepository.save(companyEntity.getaddress());
         companyRepository.save(companyEntity);
         return ResponseEntity.ok().body(companyEntity);
     }

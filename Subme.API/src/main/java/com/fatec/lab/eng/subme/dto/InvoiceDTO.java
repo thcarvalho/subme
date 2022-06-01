@@ -26,7 +26,7 @@ public class InvoiceDTO extends RegisterDTO {
 		this.dueDate = invoiceEntity.getDueDate();
 		this.wasPaid = invoiceEntity.isWasPaid();
 		this.value = invoiceEntity.getValue();
-		this.idSubscription = invoiceEntity.getSubscriptionId();
+		this.idSubscription = invoiceEntity.getSubscription();
 		this.setCreatedAt(invoiceEntity.getCreatedAt());
 		this.setUpdatedAt(invoiceEntity.getUpdatedAt());
 	}
@@ -59,7 +59,7 @@ public class InvoiceDTO extends RegisterDTO {
 		return idSubscription;
 	}
 	public void setSubscription(Long subscription) {
-		this.idSubscription = idSubscription;
+		this.idSubscription = subscription;
 	}
 	
 	

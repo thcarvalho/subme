@@ -1,6 +1,8 @@
 package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.AddressDTO;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class AddressEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_address")
     private Long id;
 
     @Column(name = "street")
@@ -33,9 +36,11 @@ public class AddressEntity implements Serializable {
     @Column(name = "zipcode")
     private String zipcode;
 
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -49,6 +54,8 @@ public class AddressEntity implements Serializable {
         this.state = addressDTO.getState();
         this.country = addressDTO.getCountry();
         this.zipcode = addressDTO.getZipcode();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {
