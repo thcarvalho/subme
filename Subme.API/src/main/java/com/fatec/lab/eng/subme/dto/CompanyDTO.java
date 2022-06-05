@@ -11,12 +11,12 @@ public class CompanyDTO extends SystemUserDTO {
 
 	public CompanyDTO() {}
 
-	public CompanyDTO(String cnpj, String name, String email, AddressDTO adress,
+	public CompanyDTO(String cnpj, String name, String email, AddressDTO address,
 					  String username, String password) {
 		this.cnpj = cnpj;
 		this.setName(name);
 		this.setEmail(email);
-		this.address = adress;
+		this.address = address;
 		this.setUsername(username);
 		this.setPassword(password);
 	}
@@ -26,7 +26,7 @@ public class CompanyDTO extends SystemUserDTO {
 		this.cnpj = companyEntity.getCnpj();
 		this.setName(companyEntity.getUserEntity().getName());
 		this.setEmail(companyEntity.getUserEntity().getEmail());
-		this.address = ModelToDTO.addressFactory(companyEntity.getAdress());
+		this.address = ModelToDTO.addressFactory(companyEntity.getaddress());
 		this.setUsername(companyEntity.getUserEntity().getUsername());
 		this.setPassword(companyEntity.getUserEntity().getPassword());
 		this.setCreatedAt(companyEntity.getCreatedAt());
@@ -42,8 +42,8 @@ public class CompanyDTO extends SystemUserDTO {
 	public AddressDTO getAddress() {
 		return address;
 	}
-	public void setAddress(AddressDTO adress) {
-		this.address = adress;
+	public void setAddress(AddressDTO address) {
+		this.address = address;
 	}
 
 	}

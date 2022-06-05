@@ -1,34 +1,39 @@
 package com.fatec.lab.eng.subme.dto;
 
+import com.fatec.lab.eng.subme.entities.SubscriptionEntity;
+
 public class SubscriptionDTO extends RegisterDTO {
-	private long customerId;
-	private long planId;
-	private SubscriptionStatusDTO status;
+	private CustomerDTO customer;
+	private PlanDTO plan;
+	private int status;
 
 	public SubscriptionDTO() {}
 
-	public SubscriptionDTO(long customerId, long planId, SubscriptionStatusDTO status) {
-		this.customerId = customerId;
-		this.planId = planId;
-		this.status = status;
+	public SubscriptionDTO(SubscriptionEntity subscriptionEntity, CustomerDTO customerDTO, PlanDTO planDTO) {
+		this.setId(subscriptionEntity.getId());
+		this.customer = customerDTO;
+		this.plan = planDTO;
+		this.status = subscriptionEntity.getStatus();
+		this.setCreatedAt(subscriptionEntity.getCreatedAt());
+		this.setUpdatedAt(subscriptionEntity.getUpdatedAt());
 	}
 
-	public long getCustomerId() {
-		return customerId;
+	public CustomerDTO getCustomer() {
+		return customer;
 	}
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
+	public void setCustomer(CustomerDTO customer) {
+		this.customer = customer;
 	}
-	public long getPlanId() {
-		return planId;
+	public PlanDTO getPlan() {
+		return plan;
 	}
-	public void setPlanId(long planId) {
-		this.planId = planId;
+	public void setPlan(PlanDTO plan) {
+		this.plan = plan;
 	}
-	public SubscriptionStatusDTO getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(SubscriptionStatusDTO status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 }

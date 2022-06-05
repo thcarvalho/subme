@@ -9,7 +9,7 @@ public class DTOToModel {
     }
 
     public static CustomerEntity customerFactory(CustomerDTO dto) {
-        return new CustomerEntity();
+        return new CustomerEntity(dto);
     }
 
     public static InvoiceEntity invoiceFactory(InvoiceDTO dto) {
@@ -17,15 +17,15 @@ public class DTOToModel {
     }
 
     public static PlanEntity planFactory(PlanDTO dto) {
-        return new PlanEntity();
+        return new PlanEntity(dto);
     }
 
-    public static UserEntity userFactory(String name, String email, String username, String password) {
-        return new UserEntity(name, email, username, password);
+    public static UserEntity userFactory(UserDTO userDTO) {
+        return new UserEntity(userDTO);
     }
 
-    public static SubscriptionEntity subscriptionFactory(SubscriptionDTO dto) {
-        return new SubscriptionEntity();
+    public static SubscriptionEntity subscriptionFactory(CustomerDTO customerDTO, PlanDTO planDTO, int status) {
+        return new SubscriptionEntity(customerDTO, planDTO, status);
     }
 
     public static AddressEntity addressFactory(AddressDTO dto){

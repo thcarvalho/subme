@@ -1,5 +1,9 @@
 package com.fatec.lab.eng.subme.entities;
 
+import com.fatec.lab.eng.subme.dto.InvoiceDTO;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +13,8 @@ import java.util.Date;
 public class InvoiceEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_invoice")
     private Long id;
 
     @Column(name = "due_date")
@@ -23,15 +29,31 @@ public class InvoiceEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "id_subscription")
-    private SubscriptionEntity subscription;
 
+    @JoinColumn(name = "id_subscription")
+    private Long subscription;
+
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
+
+    public InvoiceEntity() {
+    }
+
+    public InvoiceEntity(InvoiceDTO invoiceDTO) {
+        this.id = invoiceDTO.getId();
+        this.dueDate = invoiceDTO.getDueDate();
+        this.wasPaid = invoiceDTO.isWasPaid();
+        this.value = invoiceDTO.getValue();
+        this.description = invoiceDTO.getDescription();
+        this.subscription = invoiceDTO.getSubscription();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 
     public Long getId() {
         return id;
@@ -69,11 +91,11 @@ public class InvoiceEntity implements Serializable {
         this.description = description;
     }
 
-    public SubscriptionEntity getSubscriptionDTO() {
+    public Long getSubscription() {
         return subscription;
     }
 
-    public void setSubscriptionDTO(SubscriptionEntity subscription) {
+    public void setSubscription(Long subscription) {
         this.subscription = subscription;
     }
 
