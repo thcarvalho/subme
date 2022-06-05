@@ -39,11 +39,11 @@ public class CompanyService {
         }else if (userRepository.existsByUsername(companyDTO.getUsername())){
             return ResponseEntity.badRequest().body("Username já existe!");
         }
-        UserEntity userEntity = DTOToModel.userFactory(companyDTO.getName(), companyDTO.getEmail(),
+        UserEntity userEntity = new UserEntity(companyDTO.getName(), companyDTO.getEmail(),
                 companyDTO.getUsername(), companyDTO.getPassword());
         userRepository.save(userEntity);
         CompanyEntity companyEntity = DTOToModel.companyFactory(companyDTO, userEntity);
-        addressRepository.save(companyEntity.getAdress());
+        //addressRepository.save(companyEntity.getaddress());
         companyRepository.save(companyEntity);
         return ResponseEntity.ok().body(companyEntity);
     }

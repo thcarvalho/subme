@@ -24,7 +24,7 @@ public class PlanDTO extends RegisterDTO {
         this.setId(planEntity.getId());
         this.name = planEntity.getName();
         this.price = planEntity.getPrice();
-        this.isActive = planEntity.isActive();
+        this.isActive = planEntity.isStatus();
         this.description = planEntity.getDescription();
         this.companyId = planEntity.getCompanyEntity();
         this.setCreatedAt(planEntity.getCreatedAt());

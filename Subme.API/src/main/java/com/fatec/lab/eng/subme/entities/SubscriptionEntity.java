@@ -1,7 +1,10 @@
 package com.fatec.lab.eng.subme.entities;
 
+import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.PlanDTO;
 import com.fatec.lab.eng.subme.utils.SubscriptionStatus;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +17,7 @@ public class SubscriptionEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_subscription")
     private Long id;
 
     @Column(name = "id_customer")
@@ -25,9 +29,11 @@ public class SubscriptionEntity implements Serializable {
     @Column(name = "status")
     private int status;
 
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -38,6 +44,16 @@ public class SubscriptionEntity implements Serializable {
         this.customerId = customerEntity.getId();
         this.planId = planEntity.getId();
         this.status = status;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    public SubscriptionEntity(CustomerDTO customerDTO, PlanDTO planDTO, int status) {
+        this.customerId = customerDTO.getId();
+        this.planId = planDTO.getId();
+        this.status = status;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {

@@ -2,6 +2,8 @@ package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.CompanyDTO;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +17,7 @@ public class CompanyEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_company")
     private Long id;
 
     @Column(name = "name")
@@ -24,16 +27,18 @@ public class CompanyEntity implements Serializable {
     private String cnpj;
 
     @OneToOne
-    @JoinColumn(name = "id_adress")
-    private AddressEntity adress;
+    @JoinColumn(name = "id_address")
+    private AddressEntity address;
 
     @OneToOne
     @JoinColumn(name = "id_user")
     private UserEntity userEntity;
 
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -45,10 +50,10 @@ public class CompanyEntity implements Serializable {
         this.id = companyDTO.getId();
         this.name = companyDTO.getName();
         this.cnpj = companyDTO.getCnpj();
-        this.adress = DTOToModel.addressFactory(companyDTO.getAddress());
+        this.address = DTOToModel.addressFactory(companyDTO.getAddress());
         this.userEntity = userEntity;
-        this.createdAt = companyDTO.getCreatedAt();
-        this.updatedAt = companyDTO.getUpdatedAt();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {
@@ -63,12 +68,12 @@ public class CompanyEntity implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public AddressEntity getAdress() {
-        return adress;
+    public AddressEntity getaddress() {
+        return address;
     }
 
-    public void setAdress(AddressEntity adress) {
-        this.adress = adress;
+    public void setaddress(AddressEntity address) {
+        this.address = address;
     }
 
     public UserEntity getUserEntity() {

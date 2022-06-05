@@ -4,6 +4,9 @@ import com.fatec.lab.eng.subme.dto.AddressDTO;
 import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,25 +20,30 @@ public class CustomerEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_customer")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "cpf_cnpj")
+    @Column(name = "cpf")
     private String cpf;
 
     @OneToOne
-    @JoinColumn(name = "id_adress")
-    private AddressEntity adress;
-
+    @JoinColumn(name = "id_address")
+    private AddressEntity address;
 
     @JoinColumn(name = "id_company")
     private Long idCompany;
 
+    @Column(name = "email")
+    private String email;
+
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -46,10 +54,11 @@ public class CustomerEntity implements Serializable {
         this.id = customerDTO.getId();
         this.name = customerDTO.getName();
         this.cpf = customerDTO.getCpf();
-        this.adress = DTOToModel.addressFactory(customerDTO.getAddress());
+        this.address = DTOToModel.addressFactory(customerDTO.getAddress());
         this.idCompany = customerDTO.getCompanyId();
-        this.createdAt = customerDTO.getCreatedAt();
-        this.updatedAt = customerDTO.getUpdatedAt();
+        this.email = customerDTO.getEmail();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {
@@ -76,12 +85,12 @@ public class CustomerEntity implements Serializable {
         this.cpf = cpf;
     }
 
-    public AddressEntity getAdress() {
-        return adress;
+    public AddressEntity getaddress() {
+        return address;
     }
 
-    public void setAdress(AddressEntity adress) {
-        this.adress = adress;
+    public void setaddress(AddressEntity address) {
+        this.address = address;
     }
 
     public Long getIdCompany() {
@@ -90,6 +99,14 @@ public class CustomerEntity implements Serializable {
 
     public void setIdCompany(Long idCompany) {
         this.idCompany = idCompany;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getCreatedAt() {

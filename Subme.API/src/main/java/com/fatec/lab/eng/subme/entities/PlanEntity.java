@@ -1,6 +1,8 @@
 package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.PlanDTO;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class PlanEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_plan")
     private Long id;
 
     @Column(name = "name")
@@ -21,18 +24,20 @@ public class PlanEntity implements Serializable {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "status")
+    private boolean status;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "id_company")
+    @JoinColumn(name = "id_company")
     private Long companyId;
 
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -42,11 +47,11 @@ public class PlanEntity implements Serializable {
         this.id = planDTO.getId();
         this.name = planDTO.getName();
         this.price = planDTO.getPrice();
-        this.isActive = planDTO.getIsActive();
+        this.status = planDTO.getIsActive();
         this.description = planDTO.getDescription();
         this.companyId = planDTO.getCompanyId();
-        this.createdAt = planDTO.getCreatedAt();
-        this.updatedAt = planDTO.getUpdatedAt();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {
@@ -73,12 +78,12 @@ public class PlanEntity implements Serializable {
         this.price = price;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getDescription() {

@@ -1,6 +1,8 @@
 package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.InvoiceDTO;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +13,8 @@ import java.util.Date;
 public class InvoiceEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_invoice")
     private Long id;
 
     @Column(name = "due_date")
@@ -27,11 +31,13 @@ public class InvoiceEntity implements Serializable {
 
 
     @JoinColumn(name = "id_subscription")
-    private Long subscriptionId;
+    private Long subscription;
 
+    @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(name ="updated_at")
     private Date updatedAt;
 
@@ -44,9 +50,9 @@ public class InvoiceEntity implements Serializable {
         this.wasPaid = invoiceDTO.isWasPaid();
         this.value = invoiceDTO.getValue();
         this.description = invoiceDTO.getDescription();
-        this.subscriptionId = invoiceDTO.getSubscription();
-        this.createdAt = invoiceDTO.getCreatedAt();
-        this.updatedAt = invoiceDTO.getUpdatedAt();
+        this.subscription = invoiceDTO.getSubscription();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {
@@ -85,12 +91,12 @@ public class InvoiceEntity implements Serializable {
         this.description = description;
     }
 
-    public Long getSubscriptionId() {
-        return subscriptionId;
+    public Long getSubscription() {
+        return subscription;
     }
 
-    public void setSubscriptionId(Long subscriptionId) {
-        this.subscriptionId = subscriptionId;
+    public void setSubscription(Long subscription) {
+        this.subscription = subscription;
     }
 
     public Date getCreatedAt() {

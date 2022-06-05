@@ -14,6 +14,8 @@ public class SubscriptionDTO extends RegisterDTO {
 		this.customer = customerDTO;
 		this.plan = planDTO;
 		this.status = subscriptionEntity.getStatus();
+		this.setCreatedAt(subscriptionEntity.getCreatedAt());
+		this.setUpdatedAt(subscriptionEntity.getUpdatedAt());
 	}
 
 	public CustomerDTO getCustomer() {
