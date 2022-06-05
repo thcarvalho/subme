@@ -34,6 +34,16 @@ public class CustomerService {
     @Autowired
     private PlanRepository planRepository;
 
+    public ResponseEntity<?> update(CustomerDTO customerDTO){
+        if(!customerRepository.existsById(customerDTO.getId())){
+            return ResponseEntity.badRequest().body("Cliente ainda não cadastrado!");
+        }
+        CustomerEntity customerEntity = DTOToModel.customerFactory(customerDTO);
+        addressRepository.save(customerEntity.getaddress());
+        customerRepository.save(customerEntity);
+        return ResponseEntity.ok().body(customerEntity);
+    }
+
     public ResponseEntity<?> create(SubscriptionDTO subscriptionDTO){
         if(customerRepository.existsByCpf(subscriptionDTO.getCustomer().getCpf())){
             return ResponseEntity.badRequest().body("CPF ou CNPJ já cadastrado!");
@@ -43,8 +53,10 @@ public class CustomerService {
         customerRepository.save(customerEntity);
         //PlanEntity planEntity = planRepository.findByName(subscriptionDTO.getPlan().getName());
         PlanEntity planEntity = planRepository.findById(subscriptionDTO.getPlan().getId()).get();
-        return ResponseEntity.ok().body(subscriptionService.create(customerEntity, planEntity, subscriptionDTO.getStatus()));
+        return ResponseEntity.ok().body(subscriptionService.create(customerEntity, planEntity, 1));
     }
+
+
 
     public List<CustomerDTO> toList(List<CustomerEntity> customers){
         List<CustomerDTO> customerDTOS = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.fatec.lab.eng.subme.entities;
 
+import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.PlanDTO;
 import com.fatec.lab.eng.subme.utils.SubscriptionStatus;
 import org.springframework.data.annotation.CreatedDate;
@@ -42,6 +43,14 @@ public class SubscriptionEntity implements Serializable {
     public SubscriptionEntity(CustomerEntity customerEntity, PlanEntity planEntity, int status) {
         this.customerId = customerEntity.getId();
         this.planId = planEntity.getId();
+        this.status = status;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    public SubscriptionEntity(CustomerDTO customerDTO, PlanDTO planDTO, int status) {
+        this.customerId = customerDTO.getId();
+        this.planId = planDTO.getId();
         this.status = status;
         this.createdAt = new Date();
         this.updatedAt = new Date();

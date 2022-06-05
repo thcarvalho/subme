@@ -21,6 +21,15 @@ public class PlanService {
     @Autowired
     private PlanRepository planRepository;
 
+    public ResponseEntity<?> update(PlanDTO planDTO){
+        if(!planRepository.existsById(planDTO.getId())){
+            return ResponseEntity.badRequest().body("Não cadastrado!");
+        }
+        PlanEntity planEntity = DTOToModel.planFactory(planDTO);
+        planRepository.save(planEntity);
+        return ResponseEntity.ok().body(planEntity);
+    }
+
     public ResponseEntity<?> create(PlanDTO planDTO){
         if(planRepository.existsByName(planDTO.getName())){
             return ResponseEntity.badRequest().body("Nome já cadastrado!");

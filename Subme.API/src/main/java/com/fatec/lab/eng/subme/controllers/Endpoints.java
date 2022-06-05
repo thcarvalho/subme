@@ -7,10 +7,7 @@ import com.fatec.lab.eng.subme.entities.InvoiceEntity;
 import com.fatec.lab.eng.subme.entities.PlanEntity;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
 import com.fatec.lab.eng.subme.factories.ModelToDTO;
-import com.fatec.lab.eng.subme.repositories.CompanyRepository;
-import com.fatec.lab.eng.subme.repositories.CustomerRepository;
-import com.fatec.lab.eng.subme.repositories.PlanRepository;
-import com.fatec.lab.eng.subme.repositories.SubscriptionRepository;
+import com.fatec.lab.eng.subme.repositories.*;
 import com.fatec.lab.eng.subme.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +49,10 @@ public class Endpoints {
     @Autowired
     SubscriptionService subscriptionService;
 
+    @Autowired
+    AddressService addressService;
+
+    //creates---------------------------------------------------------------------------------------
 
     //cadastra empresa
     @PostMapping("/create/companies")
@@ -71,20 +72,37 @@ public class Endpoints {
         return customerService.create(subscriptionDTO);
     }
 
-    @GetMapping("/search/companies/{id}")
-    public ResponseEntity<CompanyDTO> searchCompanyById(@RequestBody Long id){
-        return ResponseEntity.ok(ModelToDTO.companyFactory(companyRepository.findById(id).get()));
+    @PostMapping("/create/subscriptions")
+    public ResponseEntity<?> createSubscription(@RequestBody SubscriptionDTO subscriptionDTO){
+        return subscriptionService.createWithCustomerRegistered(subscriptionDTO);
     }
 
-    @GetMapping("/search/plans/{id}")
-    public ResponseEntity<PlanDTO> searchPlanById(@RequestBody Long id){
-        return ResponseEntity.ok(ModelToDTO.planFactory(planRepository.findById(id).get()));
+    //Updates---------------------------------------------------------------------------------------
+
+
+
+    @PutMapping("/update/plans")
+    public ResponseEntity<?> updatePlan(@RequestBody PlanDTO planDTO){
+        return planService.update(planDTO);
     }
 
-    @GetMapping("/search/customers/{id}")
-    public ResponseEntity<CustomerDTO> searchCustomerById(@RequestBody Long id){
-        return ResponseEntity.ok(ModelToDTO.customerFactory(customerRepository.findById(id).get()));
+    @PutMapping("/update/customers")
+    public ResponseEntity<?> updateCustomer(@RequestBody CustomerDTO customerDTO){
+        return customerService.update(customerDTO);
     }
+
+    @PutMapping("/update/subscriptions")
+    public ResponseEntity<?> updateSubscriptions(@RequestBody SubscriptionDTO subscriptionDTO){
+        return subscriptionService.update(subscriptionDTO);
+    }
+
+    @PutMapping("/update/addresses")
+    public ResponseEntity<?> updateAddresses(@RequestBody AddressDTO addressDTO){
+        return addressService.update(addressDTO);
+    }
+
+
+
 
     /* TRABALHANDO NESSE AINDA
     @GetMapping("/subscription/search/{id}")
@@ -92,6 +110,7 @@ public class Endpoints {
         return ResponseEntity.ok(ModelToDTO.subscriptionFactory(subscriptionRepository.findById(id).get()));
     }*/
 
+    //Filters---------------------------------------------------------------------------------------
 
     @GetMapping("/customers")
     @ResponseBody
@@ -112,6 +131,29 @@ public class Endpoints {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //-----------------------------------------------------------------------------------
     @GetMapping("/companies")
     public ResponseEntity<List<CompanyDTO>> getAllCompanies(){
         return ResponseEntity.ok().body(companyService.toList());
@@ -122,6 +164,22 @@ public class Endpoints {
         return ResponseEntity.ok().body(invoiceService.toList());
     }
 
+    //searchs-------------------------------------------------------------------------------
+
+    @GetMapping("/search/companies/{id}")
+    public ResponseEntity<CompanyDTO> searchCompanyById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.companyFactory(companyRepository.findById(id).get()));
+    }
+
+    @GetMapping("/search/plans/{id}")
+    public ResponseEntity<PlanDTO> searchPlanById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.planFactory(planRepository.findById(id).get()));
+    }
+
+    @GetMapping("/search/customers/{id}")
+    public ResponseEntity<CustomerDTO> searchCustomerById(@RequestBody Long id){
+        return ResponseEntity.ok(ModelToDTO.customerFactory(customerRepository.findById(id).get()));
+    }
 
 
 

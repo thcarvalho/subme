@@ -1,5 +1,6 @@
 package com.fatec.lab.eng.subme.entities;
 
+import com.fatec.lab.eng.subme.dto.UserDTO;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -45,6 +46,16 @@ public class UserEntity implements Serializable{
         this.email = email;
         this.username = username;
         this.password = password;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    public UserEntity(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.name = userDTO.getName();
+        this.email = userDTO.getEmail();
+        this.username = userDTO.getUsername();
+        this.password = userDTO.getPassword();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

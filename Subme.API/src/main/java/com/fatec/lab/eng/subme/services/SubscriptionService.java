@@ -29,10 +29,31 @@ public class SubscriptionService {
     @Autowired
     private PlanRepository planRepository;
 
-    public ResponseEntity<?> create(CustomerEntity customerEntity, PlanEntity planEntity, int status){
-        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(customerEntity, planEntity, status);
+
+    public ResponseEntity<?> update(SubscriptionDTO subscriptionDTO){
+        if (!subscriptionRepository.existsById(subscriptionDTO.getId())) ResponseEntity.badRequest().body("Inscrição não existe");
+        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(subscriptionDTO.getCustomer(), subscriptionDTO.getPlan(), subscriptionDTO.getStatus());
         subscriptionRepository.save(subscriptionEntity);
         return ResponseEntity.ok().body(subscriptionEntity);
+    }
+
+    public ResponseEntity<?> create(CustomerEntity customerEntity, PlanEntity planEntity, int status){
+        SubscriptionEntity subscriptionEntity = new SubscriptionEntity(customerEntity, planEntity, status);
+        subscriptionRepository.save(subscriptionEntity);
+        return ResponseEntity.ok().body(subscriptionEntity);
+    }
+
+    public ResponseEntity<?> createWithCustomerRegistered(CustomerDTO customerDTO, PlanDTO planDTO, int status){
+        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(customerDTO, planDTO, status);
+        subscriptionRepository.save(subscriptionEntity);
+        return ResponseEntity.ok().body(subscriptionEntity);
+    }
+
+    public ResponseEntity<?> createWithCustomerRegistered(SubscriptionDTO subscriptionDTO){
+        if(!customerRepository.existsById(subscriptionDTO.getCustomer().getId())){
+            return ResponseEntity.badRequest().body("CPF ou CNPJ não cadastrado!");
+        }
+        return ResponseEntity.ok().body(createWithCustomerRegistered(subscriptionDTO.getCustomer(), subscriptionDTO.getPlan(), 1));
     }
 
     public List<SubscriptionDTO> toList(){
@@ -61,8 +82,8 @@ public class SubscriptionService {
 
     public ResponseEntity<List<SubscriptionDTO>> filterList(List<String> param){
         List<SubscriptionEntity> response = new ArrayList<>();
-        ArrayList<CustomerEntity> responseC = new ArrayList<>();
-        ArrayList<PlanEntity> responseP = new ArrayList<>();
+        ArrayList<CustomerEntity> responseC;
+        ArrayList<PlanEntity> responseP;
         if(param.size() == 2){
             String var, value;
             var = param.get(0).toLowerCase();
@@ -99,4 +120,6 @@ public class SubscriptionService {
         }
         return ResponseEntity.ok().body(toList(response));
     }
+
+
 }
