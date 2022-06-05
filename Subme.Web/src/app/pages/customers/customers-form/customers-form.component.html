@@ -1,0 +1,57 @@
+<app-modal [formGroup]="form">
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutGap=".1em" fxFlex="100">
+      <div fxLayout="column" fxLayoutGap=".1em" fxFlex="100">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="text" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CPF</mat-label>
+          <input matInput type="text" formControlName="cpf">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Plano</mat-label>
+          <mat-select formControlName="planId">
+            <mat-option value="0">Plano Comum</mat-option>
+            <mat-option value="1">Plano Premium</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input matInput type="text" formControlName="zipcode">
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutGap=".1em" fxFlex="100">
+        <mat-form-field appearance="outline">
+          <mat-label>Rua</mat-label>
+          <input matInput type="text" formControlName="street">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput type="text" formControlName="city">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input matInput type="text" formControlName="state">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>País</mat-label>
+          <input matInput type="text" formControlName="country">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput type="text" formControlName="number">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="end center">
+    <button mat-raised-button color="warn" (click)="saveCustomerAsync()" [disabled]="form.invalid">SALVAR</button>
+    <button mat-button mat-dialog-close>CANCELAR</button>
+  </div>
+</app-modal>

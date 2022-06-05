@@ -101,7 +101,16 @@ public class Endpoints {
         return addressService.update(addressDTO);
     }
 
+    //Delete------------------------------------------------------------------------------
+    @DeleteMapping("/delete/customers/{id}")
+    public ResponseEntity<?> deleteCustomers(@PathVariable Long id) {
+        return customerService.delete(id);
+    }
 
+    @DeleteMapping("/delete/plans/{id}")
+    public ResponseEntity<?> deletePlans(@PathVariable Long id) {
+        return customerService.delete(id);
+    }
 
 
     /* TRABALHANDO NESSE AINDA

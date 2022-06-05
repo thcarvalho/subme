@@ -1,0 +1,17 @@
+.container {
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  height: 100%;
+
+  .add-btn {
+    height: 3em;
+    margin-bottom: 20px;
+    color: white;
+    background: #C4C4C4;
+  }
+  .add-btn:hover {
+    background: #b8b8b8;
+  }
+}

@@ -27,10 +27,12 @@ public class CompanyEntity implements Serializable {
     private String cnpj;
 
 
-    @Column(name = "id_address")
+    @OneToOne
+    @JoinColumn(name = "id_address")
     private AddressEntity address;
 
-    @Column(name = "id_user")
+    @OneToOne
+    @JoinColumn(name = "id_user")
     private UserEntity userEntity;
 
     @CreatedDate
