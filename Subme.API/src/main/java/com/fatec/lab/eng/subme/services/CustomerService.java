@@ -44,6 +44,16 @@ public class CustomerService {
         return ResponseEntity.ok().body(customerEntity);
     }
 
+    public ResponseEntity<?> delete(Long id){
+        if(!customerRepository.existsById(id)){
+            return ResponseEntity.badRequest().body("Cliente ainda não cadastrado!");
+        }
+        CustomerEntity customerEntity = customerRepository.findById(id).get();
+        customerEntity.setStatus(false);
+        customerRepository.save(customerEntity);
+        return ResponseEntity.ok().body(customerEntity);
+    }
+
     public ResponseEntity<?> create(SubscriptionDTO subscriptionDTO){
         if(customerRepository.existsByCpf(subscriptionDTO.getCustomer().getCpf())){
             return ResponseEntity.badRequest().body("CPF ou CNPJ já cadastrado!");
