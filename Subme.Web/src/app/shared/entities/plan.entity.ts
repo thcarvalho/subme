@@ -5,4 +5,5 @@ export class Plan extends BaseEntity {
   price!: number;
   isActive!: boolean;
   description!: string;
+  companyId!: number;
 }

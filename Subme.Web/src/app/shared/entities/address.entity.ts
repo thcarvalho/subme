@@ -6,5 +6,5 @@ export class Address extends BaseEntity {
   state!: string;
   country!: string;
   zipcode!: string;
-  number!: number;
+  number!: string;
 }

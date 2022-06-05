@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class InvoiceService extends ApiService<Invoice> {
+export class InvoiceService extends ApiService<Invoice, Invoice> {
 
   constructor(
     protected http: HttpClient,

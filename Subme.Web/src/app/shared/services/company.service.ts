@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService extends ApiService<Company> {
+export class CompanyService extends ApiService<Company, Company> {
 
   constructor(
     protected http: HttpClient,

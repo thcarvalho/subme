@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export abstract class ApiService<T> {
+export abstract class ApiService<TData, TOut> {
   env = environment;
 
   constructor(
@@ -14,11 +14,12 @@ export abstract class ApiService<T> {
     protected http: HttpClient,
   ) { }
 
-  getAllAsync(): Observable<T[]> {
-    return this.http.get<T[]>(`${this.env.apiUrl}/${this.route}`);
+  getAllAsync(): Observable<TOut[]> {
+    return this.http.get<TOut[]>(`${this.env.apiUrl}/${this.route}`);
   }
 
-  createAsync(data: T): Observable<T> {
-    return this.http.post<T>(`${this.env.apiUrl}/${this.route}/create`, data);
+  createAsync(data: TData): Observable<TOut> {
+    const body = JSON.stringify(data);
+    return this.http.post<TOut>(`${this.env.apiUrl}/${this.route}/create`, body);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalConfig } from 'src/app/shared/components/modal/classes/modal-config';
 import { ModalService } from 'src/app/shared/components/modal/services/modal.service';
 import { TableMenuOptions } from 'src/app/shared/components/table/classes/table-menu-options';
+import { Customer } from 'src/app/shared/entities/customer.entity';
 import { CustomersFormComponent } from './customers-form/customers-form.component';
 
 @Component({
@@ -12,62 +13,22 @@ import { CustomersFormComponent } from './customers-form/customers-form.componen
 export class CustomersComponent implements OnInit {
   columns: any[] = [];
   tableOptions!: TableMenuOptions;
-  data: any[] = [
+  data = [
     {
       email: 'asd@asd',
       cpf: '123.123.123-12',
       id: 1,
       name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-    {
-      email: 'asd@asd',
-      cpf: '123.123.123-12',
-      id: 1,
-      name: 'abc',
-    },
-  ];
+      address: {
+        zipcode: '03828160',
+        country: 'Brasil',
+        state: 'SP',
+        city: 'São Paulo',
+        street: 'Rua ABC',
+        number: '11',
+      }
+    }
+  ] as Customer[];
 
   constructor(
     private modalService: ModalService
