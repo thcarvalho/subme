@@ -19,7 +19,16 @@ export abstract class ApiService<TData, TOut> {
   }
 
   createAsync(data: TData): Observable<TOut> {
-    const body = JSON.stringify(data);
-    return this.http.post<TOut>(`${this.env.apiUrl}/create/${this.route}`, body);
+    const json = Object.assign(data, {});
+    return this.http.post<TOut>(`${this.env.apiUrl}/create/${this.route}`, json);
+  }
+
+  updateAsync(data: TData): Observable<TOut> {
+    const body = Object.assign(data, {})
+    return this.http.put<TOut>(`${this.env.apiUrl}/update/${this.route}`, body);
+  }
+
+  deleteAsync(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.env.apiUrl}/delete/${this.route}/${id}`);
   }
 }

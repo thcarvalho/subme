@@ -28,7 +28,7 @@ export class CustomersFormComponent implements OnInit {
       name: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       cpf: [null, [Validators.required]],
-      planId: [null, [Validators.required]],
+      planId: [null],
       zipcode: [null, [Validators.required]],
       street: [null, [Validators.required]],
       city: [null, [Validators.required]],

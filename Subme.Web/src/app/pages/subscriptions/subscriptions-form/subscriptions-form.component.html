@@ -1,22 +1,22 @@
-<app-modal>
+<app-modal [formGroup]="form">
   <div fxLayout="column" fxLayoutGap=".1em">
     <mat-form-field appearance="outline">
       <mat-label>Cliente</mat-label>
-      <mat-select>
-        <mat-option value="one">João da Silva</mat-option>
-        <mat-option value="two">Maria da Penha</mat-option>
+      <mat-select formControlName="customerId">
+        <mat-option [value]="1">João da Silva</mat-option>
+        <mat-option [value]="2">Maria da Penha</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Plano</mat-label>
-      <mat-select>
-        <mat-option value="one">Plano Comum</mat-option>
-        <mat-option value="two">Plano Premium</mat-option>
+      <mat-select formControlName="planId">
+        <mat-option [value]="1">Plano Comum</mat-option>
+        <mat-option [value]="2">Plano Premium</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <div mat-dialog-actions fxLayoutAlign="end center">
-    <button mat-raised-button color="warn" (click)="saveSubscription()">SALVAR</button>
+    <button mat-raised-button color="warn" (click)="saveSubscriptionAsync()">SALVAR</button>
     <button mat-button mat-dialog-close>CANCELAR</button>
   </div>
 </app-modal>

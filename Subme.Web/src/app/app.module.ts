@@ -24,7 +24,6 @@ import { MainLayoutModule } from './shared/components/main-layout/main-layout.mo
     BrowserAnimationsModule,
     MainLayoutModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmDialogModule } from 'src/app/shared/components/confirm-dialog/confirm-dialog.module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatDialogModule,
     MatSnackBarModule,
-    ModalModule
+    ModalModule,
+    ConfirmDialogModule
   ],
   exports: [
     CustomersComponent,
