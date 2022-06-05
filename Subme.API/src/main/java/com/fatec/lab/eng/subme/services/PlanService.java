@@ -38,6 +38,16 @@ public class PlanService {
         planRepository.save(planEntity);
         return ResponseEntity.ok().body(planEntity);
     }
+
+    public ResponseEntity<?> delete(Long id){
+        if(!planRepository.existsById(id)){
+            return ResponseEntity.badRequest().body("Plano ainda não cadastrado!");
+        }
+        PlanEntity planEntity = planRepository.findById(id).get();
+        planEntity.setStatus(false);
+        planRepository.save(planEntity);
+        return ResponseEntity.ok().body(planEntity);
+    }
     public List<PlanDTO> toList(List<PlanEntity> plans){
         List<PlanDTO> planDTOS = new ArrayList<>();
         for (PlanEntity entity : plans){
@@ -58,11 +68,7 @@ public class PlanService {
                     break;
                 case "status":
                     boolean status;
-                    if("true".contains(value)){
-                        status = true;
-                    } else {
-                        status = false;
-                    }
+                    status = ("true".contains(value));
                     response = planRepository.findByStatus(status);
                     break;
                 default:
