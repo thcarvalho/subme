@@ -20,6 +20,6 @@ export abstract class ApiService<TData, TOut> {
 
   createAsync(data: TData): Observable<TOut> {
     const body = JSON.stringify(data);
-    return this.http.post<TOut>(`${this.env.apiUrl}/${this.route}/create`, body);
+    return this.http.post<TOut>(`${this.env.apiUrl}/create/${this.route}`, body);
   }
 }
