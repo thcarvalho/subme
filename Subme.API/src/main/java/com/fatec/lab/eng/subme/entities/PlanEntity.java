@@ -24,8 +24,8 @@ public class PlanEntity implements Serializable {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "status")
+    private boolean status;
 
     @Column(name = "description")
     private String description;
@@ -47,7 +47,7 @@ public class PlanEntity implements Serializable {
         this.id = planDTO.getId();
         this.name = planDTO.getName();
         this.price = planDTO.getPrice();
-        this.isActive = planDTO.getIsActive();
+        this.status = planDTO.getIsActive();
         this.description = planDTO.getDescription();
         this.companyId = planDTO.getCompanyId();
         this.createdAt = new Date();
@@ -78,12 +78,12 @@ public class PlanEntity implements Serializable {
         this.price = price;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getDescription() {

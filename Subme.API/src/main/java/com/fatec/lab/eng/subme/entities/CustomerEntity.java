@@ -36,6 +36,9 @@ public class CustomerEntity implements Serializable {
     @JoinColumn(name = "id_company")
     private Long idCompany;
 
+    @Column(name = "email")
+    private String email;
+
     @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
@@ -53,6 +56,7 @@ public class CustomerEntity implements Serializable {
         this.cpf = customerDTO.getCpf();
         this.address = DTOToModel.addressFactory(customerDTO.getAddress());
         this.idCompany = customerDTO.getCompanyId();
+        this.email = customerDTO.getEmail();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -95,6 +99,14 @@ public class CustomerEntity implements Serializable {
 
     public void setIdCompany(Long idCompany) {
         this.idCompany = idCompany;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getCreatedAt() {

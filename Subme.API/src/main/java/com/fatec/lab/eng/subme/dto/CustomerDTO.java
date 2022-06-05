@@ -18,6 +18,7 @@ public class CustomerDTO extends UserDTO {
 		this.cpf = customerEntity.getCpf();
 		this.address = ModelToDTO.addressFactory(customerEntity.getaddress());
 		this.companyId = customerEntity.getIdCompany();
+		this.setEmail(customerEntity.getEmail());
 		this.setCreatedAt(customerEntity.getCreatedAt());
 		this.setUpdatedAt(customerEntity.getUpdatedAt());
 	}

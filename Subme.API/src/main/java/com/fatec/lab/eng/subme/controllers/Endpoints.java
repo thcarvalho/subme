@@ -14,12 +14,14 @@ import com.fatec.lab.eng.subme.repositories.SubscriptionRepository;
 import com.fatec.lab.eng.subme.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 @RestController
 public class Endpoints {
@@ -52,34 +54,34 @@ public class Endpoints {
 
 
     //cadastra empresa
-    @PostMapping("/company/create")
+    @PostMapping("/create/companies")
     public ResponseEntity<?> createCompany(@RequestBody CompanyDTO companyDTO){
         return companyService.create(companyDTO);
     }
 
     //cadastra planos
-    @PostMapping("/plan/create")
+    @PostMapping("/create/plans")
     public ResponseEntity<?> createPlan(@RequestBody PlanDTO planDTO){
         return planService.create(planDTO);
     }
 
     //cadastra cliente vinculando-o com o plano e assim, gerando uma subscription
-    @PostMapping("/customer/create")
+    @PostMapping("/create/customers")
     public ResponseEntity<?> createCustomer(@RequestBody SubscriptionDTO subscriptionDTO){
         return customerService.create(subscriptionDTO);
     }
 
-    @GetMapping("/company/search/{id}")
+    @GetMapping("/search/companies/{id}")
     public ResponseEntity<CompanyDTO> searchCompanyById(@RequestBody Long id){
         return ResponseEntity.ok(ModelToDTO.companyFactory(companyRepository.findById(id).get()));
     }
 
-    @GetMapping("/plan/search/{id}")
+    @GetMapping("/search/plans/{id}")
     public ResponseEntity<PlanDTO> searchPlanById(@RequestBody Long id){
         return ResponseEntity.ok(ModelToDTO.planFactory(planRepository.findById(id).get()));
     }
 
-    @GetMapping("/customer/search/{id}")
+    @GetMapping("/search/customers/{id}")
     public ResponseEntity<CustomerDTO> searchCustomerById(@RequestBody Long id){
         return ResponseEntity.ok(ModelToDTO.customerFactory(customerRepository.findById(id).get()));
     }
@@ -92,9 +94,23 @@ public class Endpoints {
 
 
     @GetMapping("/customers")
-    public ResponseEntity<List<CustomerDTO>> getAllCostumers(){
-        return ResponseEntity.ok().body(customerService.toList());
+    @ResponseBody
+    public ResponseEntity<List<CustomerDTO>> filterAllCostumers(@RequestParam Optional<List<String>> param){
+       return customerService.filterList(param.get());
     }
+
+    @GetMapping("/plans")
+    public ResponseEntity<List<PlanDTO>> filterAllPlans(@RequestParam Optional<List<String>> param){
+        return planService.filterList(param.get());
+    }
+
+    @GetMapping("/subscriptions")
+    public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions(@RequestParam Optional<List<String>> param){
+        return subscriptionService.filterList(param.get());
+    }
+
+
+
 
     @GetMapping("/companies")
     public ResponseEntity<List<CompanyDTO>> getAllCompanies(){
@@ -106,15 +122,7 @@ public class Endpoints {
         return ResponseEntity.ok().body(invoiceService.toList());
     }
 
-    @GetMapping("/plans")
-    public ResponseEntity<List<PlanDTO>> getAllPlans(){
-        return ResponseEntity.ok().body(planService.toList());
-    }
 
-    @GetMapping("/subscriptions")
-    public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions(){
-        return ResponseEntity.ok().body(subscriptionService.toList());
-    }
 
 
 

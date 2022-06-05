@@ -13,9 +13,12 @@ import com.fatec.lab.eng.subme.repositories.PlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 @Service
 public class CustomerService {
@@ -43,12 +46,35 @@ public class CustomerService {
         return ResponseEntity.ok().body(subscriptionService.create(customerEntity, planEntity, subscriptionDTO.getStatus()));
     }
 
-    public List<CustomerDTO> toList(){
+    public List<CustomerDTO> toList(List<CustomerEntity> customers){
         List<CustomerDTO> customerDTOS = new ArrayList<>();
-        for (CustomerEntity entity : customerRepository.findAll()){
+        for (CustomerEntity entity : customers){
             customerDTOS.add(ModelToDTO.customerFactory(entity));
         }
         return customerDTOS;
+    }
+
+    public ResponseEntity<List<CustomerDTO>> filterList(List<String> param){
+        List<CustomerEntity> response = null;
+        if(param.size() == 2){
+            String var, value;
+            var = param.get(0).toLowerCase();
+            value = param.get(1).toLowerCase();
+            switch (var){
+                case "name":
+                    response = customerRepository.findByNameContainingIgnoreCase(value);
+                    break;
+                case "cpf":
+                    response = customerRepository.findByCpfContainingIgnoreCase(value);
+                    break;
+                case "email":
+                    response = customerRepository.findByEmailContainingIgnoreCase(value);
+                    break;
+                default:
+                    return null;
+            }
+        }
+        return ResponseEntity.ok().body(toList(response));
     }
 
 
