@@ -102,13 +102,13 @@ public class Endpoints {
     }
 
     //Delete------------------------------------------------------------------------------
-    @DeleteMapping("/delete/customers")
-    public ResponseEntity<?> deleteCustomers(@RequestBody Long id) {
+    @DeleteMapping("/delete/customers/{id}")
+    public ResponseEntity<?> deleteCustomers(@PathVariable Long id) {
         return customerService.delete(id);
     }
 
-    @DeleteMapping("/delete/plans")
-    public ResponseEntity<?> deletePlans(@RequestBody Long id) {
+    @DeleteMapping("/delete/plans/{id}")
+    public ResponseEntity<?> deletePlans(@PathVariable Long id) {
         return customerService.delete(id);
     }
 
