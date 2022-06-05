@@ -8,6 +8,8 @@ import java.util.List;
 public class CustomerDTO extends UserDTO {
 	private String cpf;
 	private AddressDTO address;
+
+	private boolean status;
 	private Long companyId;
 
 	public CustomerDTO() {}
@@ -19,6 +21,7 @@ public class CustomerDTO extends UserDTO {
 		this.address = ModelToDTO.addressFactory(customerEntity.getaddress());
 		this.companyId = customerEntity.getIdCompany();
 		this.setEmail(customerEntity.getEmail());
+		this.status = customerEntity.isStatus();
 		this.setCreatedAt(customerEntity.getCreatedAt());
 		this.setUpdatedAt(customerEntity.getUpdatedAt());
 	}
@@ -45,5 +48,13 @@ public class CustomerDTO extends UserDTO {
 
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }

@@ -12,16 +12,6 @@ public class AddressDTO extends RegisterDTO {
 
 	public AddressDTO() {}
 
-	public AddressDTO(String street, int number, String city, String state,
-					  String country, String zipcode) {
-		this.street = street;
-		this.number = number;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.zipcode = zipcode;
-	}
-
 	public AddressDTO(AddressEntity addressEntity){
 		this.setId(addressEntity.getId());
 		this.street = addressEntity.getStreet();
