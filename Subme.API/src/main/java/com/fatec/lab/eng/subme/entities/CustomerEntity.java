@@ -29,11 +29,10 @@ public class CustomerEntity implements Serializable {
     @Column(name = "cpf")
     private String cpf;
 
-    @OneToOne
-    @JoinColumn(name = "id_address")
+    @Column(name = "id_address")
     private AddressEntity address;
 
-    @JoinColumn(name = "id_company")
+    @Column(name = "id_company")
     private Long idCompany;
 
     @Column(name = "email")

@@ -30,7 +30,7 @@ public class InvoiceEntity implements Serializable {
     private String description;
 
 
-    @JoinColumn(name = "id_subscription")
+    @Column(name = "id_subscription")
     private Long subscription;
 
     @CreatedDate

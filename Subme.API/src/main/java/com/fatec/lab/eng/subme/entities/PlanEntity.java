@@ -30,7 +30,7 @@ public class PlanEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @JoinColumn(name = "id_company")
+    @Column(name = "id_company")
     private Long companyId;
 
     @CreatedDate
