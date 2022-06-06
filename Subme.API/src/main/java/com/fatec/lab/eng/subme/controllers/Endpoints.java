@@ -138,19 +138,19 @@ public class Endpoints {
     @GetMapping("/customers")
     @ResponseBody
     public ResponseEntity<List<CustomerDTO>> filterAllCostumers(@RequestParam Optional<List<String>> param, @RequestHeader(value="Authorization") String token){
-        if (param.isPresent()) return customerService.filterList(param.get());
+        if (param.isPresent()) return customerService.filteredList(param.get(), authorizationService.GetIdFromJWT(token));
         return ResponseEntity.ok().body(customerService.toList(authorizationService.GetIdFromJWT(token)));
     }
 
     @GetMapping("/plans")
     public ResponseEntity<List<PlanDTO>> filterAllPlans(@RequestParam Optional<List<String>> param, @RequestHeader(value="Authorization") String token){
-        if (param.isPresent()) return planService.filterList(param.get());
+        if (param.isPresent()) return planService.filteredList(param.get(), authorizationService.GetIdFromJWT(token));
         return ResponseEntity.ok().body(planService.toList(authorizationService.GetIdFromJWT(token)));
     }
 
     @GetMapping("/subscriptions")
     public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions(@RequestParam Optional<List<String>> param, @RequestHeader(value="Authorization") String token){
-        if(param.isPresent()) return subscriptionService.filterList(param.get());
+        if(param.isPresent()) return subscriptionService.filteredList(param.get(), authorizationService.GetIdFromJWT(token) );
         return ResponseEntity.ok().body(subscriptionService.toList(authorizationService.GetIdFromJWT(token)));
     }
 

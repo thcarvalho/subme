@@ -2,6 +2,7 @@ package com.fatec.lab.eng.subme.services;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fatec.lab.eng.subme.dto.AuthorizationDTO;
 import com.fatec.lab.eng.subme.dto.UserDTO;
 import com.fatec.lab.eng.subme.entities.UserEntity;
 import com.fatec.lab.eng.subme.repositories.CompanyRepository;
@@ -30,11 +31,11 @@ public class UserService {
         return ResponseEntity.badRequest().body("Não encontrado");
     }
 
-    public String generateJWT(Long id){
+    public AuthorizationDTO generateJWT(Long id){
         Algorithm algorithmHS = Algorithm.HMAC256("secret");
         Map<String, Object> payload = new HashMap<>();
         payload.put("companyId", id);
-        String token = JWT.create().withPayload(payload).sign(algorithmHS);
+        AuthorizationDTO token = new AuthorizationDTO(JWT.create().withPayload(payload).sign(algorithmHS));
         return token;
     }
 }

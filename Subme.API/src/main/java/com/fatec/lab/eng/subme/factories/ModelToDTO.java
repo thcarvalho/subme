@@ -11,9 +11,7 @@ public class ModelToDTO {
     public static CompanyDTO companyFactory(CompanyEntity entity) {
         return new CompanyDTO(entity);
     }
-    public static SystemUserDTO systemUserDTO(UserEntity userEntity){
-        return new SystemUserDTO(userEntity);
-    }
+
     public static CustomerDTO customerFactory(CustomerEntity entity) {
         return new CustomerDTO(entity);
     }
