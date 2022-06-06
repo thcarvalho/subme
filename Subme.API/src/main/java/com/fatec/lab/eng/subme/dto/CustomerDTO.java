@@ -3,8 +3,6 @@ package com.fatec.lab.eng.subme.dto;
 import com.fatec.lab.eng.subme.entities.CustomerEntity;
 import com.fatec.lab.eng.subme.factories.ModelToDTO;
 
-import java.util.List;
-
 public class CustomerDTO extends UserDTO {
 	private String cpf;
 	private AddressDTO address;
@@ -19,7 +17,7 @@ public class CustomerDTO extends UserDTO {
 		this.setName(customerEntity.getName());
 		this.cpf = customerEntity.getCpf();
 		this.address = ModelToDTO.addressFactory(customerEntity.getaddress());
-		this.companyId = customerEntity.getIdCompany();
+		this.companyId = customerEntity.getCompanyId();
 		this.setEmail(customerEntity.getEmail());
 		this.status = customerEntity.isStatus();
 		this.setCreatedAt(customerEntity.getCreatedAt());
