@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -20,8 +20,8 @@ export abstract class ApiService<TData, TOut> {
   }
 
   createAsync(data: TData): Observable<TOut> {
-    const json = Object.assign(data, {});
-    return this.http.post<TOut>(`${this.env.apiUrl}/create/${this.route}`, json);
+    const body = Object.assign(data, {});
+    return this.http.post<TOut>(`${this.env.apiUrl}/create/${this.route}`, body);
   }
 
   updateAsync(data: TData): Observable<TOut> {

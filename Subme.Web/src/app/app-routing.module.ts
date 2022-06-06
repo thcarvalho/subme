@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomersComponent } from './pages/customers/customers.component';
@@ -7,6 +8,7 @@ import { PlansComponent } from './pages/plans/plans.component';
 import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { HttpInterceptorService } from './shared/interceptors/http-interceptor.service';
 
 const routes: Routes = [
   {
@@ -27,5 +29,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+  ]
 })
 export class AppRoutingModule {}

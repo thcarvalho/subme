@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { SidenavItem } from './interfaces/sidenav-item';
 
 @Component({
@@ -12,7 +13,8 @@ export class SidenavComponent implements OnInit {
   items: SidenavItem[] = [];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logout(): void {
-    window.sessionStorage.removeItem("@token");
+    this.authService.clearToken();
     this.router.navigate(['login'])
   }
 }

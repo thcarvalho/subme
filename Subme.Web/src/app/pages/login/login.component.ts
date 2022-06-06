@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginUser } from 'src/app/shared/entities/login-user.entity';
-import { LoginService } from 'src/app/shared/services/login.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router
 
   ) {
@@ -41,12 +41,13 @@ export class LoginComponent implements OnInit {
   async loginAsync(): Promise<void> {
     try {
       if (this.isFormValid()) {
-        // const data = this.form.value as LoginUser;
-        // const token = await this.loginService.loginAsync(data).toPromise();
-        window.sessionStorage.setItem("@token", "asdadsasds");
+        const data = this.form.value as LoginUser;
+        const { token } = await this.authService.loginAsync(data).toPromise();
+        this.authService.setToken(token);
         this.router.navigate(['dashboard', 'home'])
       }
-    } catch (error) {
+    } catch ({error}) {
+      this.snackBar.open(error as string);
       console.error(error);
     }
   }
