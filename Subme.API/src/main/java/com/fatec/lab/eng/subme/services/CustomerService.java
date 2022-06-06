@@ -64,36 +64,43 @@ public class CustomerService {
         return ResponseEntity.ok().body(subscriptionService.create(customerEntity, planEntity, 1));
     }
 
-    public List<CustomerDTO> toList(List<CustomerEntity> customers){
-        List<CustomerDTO> customerDTOS = new ArrayList<>();
-        for (CustomerEntity entity : customers){
-            customerDTOS.add(ModelToDTO.customerFactory(entity));
-        }
-        return customerDTOS;
-    }
-
-    public ResponseEntity<List<CustomerDTO>> filterList(List<String> param){
-        List<CustomerEntity> response = null;
+    public ResponseEntity<List<CustomerDTO>> filteredList(List<String> param, Long companyId){
+        List<CustomerDTO> filteredListCustomer = new ArrayList<>(), filterListCustomer = new ArrayList<>();
+        filterListCustomer.addAll(toList(companyId));
         if(param.size() == 2){
             String var, value;
             var = param.get(0).toLowerCase();
             value = param.get(1).toLowerCase();
             switch (var){
                 case "name":
-                    response = customerRepository.findByNameContainingIgnoreCase(value);
+                    filterListCustomer.stream()
+                            .dropWhile(customerDTO -> customerDTO.getName() == null || !customerDTO.isStatus())
+                            .filter(customerDTO -> customerDTO.getName().toLowerCase().contains(value))
+                            .forEach(filteredListCustomer::add);
                     break;
                 case "cpf":
-                    response = customerRepository.findByCpfContainingIgnoreCase(value);
+                    filterListCustomer.stream()
+                            .dropWhile(customerDTO -> customerDTO.getCpf() == null || !customerDTO.isStatus())
+                            .filter(customerDTO -> customerDTO.getCpf().toLowerCase().contains(value))
+                            .forEach(filteredListCustomer::add);
                     break;
                 case "email":
-                    response = customerRepository.findByEmailContainingIgnoreCase(value);
+                    filterListCustomer.stream()
+                            .dropWhile(customerDTO -> customerDTO.getEmail() == null || !customerDTO.isStatus())
+                            .filter(customerDTO -> customerDTO.getEmail().toLowerCase().contains(value))
+                            .forEach(filteredListCustomer::add);
                     break;
                 default:
                     return null;
             }
         }
-        return ResponseEntity.ok().body(toList(response));
+        return ResponseEntity.ok().body(filteredListCustomer);
     }
+
+
+
+
+
     public List<CustomerDTO> toList(Long companyId){
         List<CustomerDTO> customerDTOS = new ArrayList<>();
         for (CustomerEntity entity : customerRepository.findAllByCompanyId(companyId)){

@@ -48,34 +48,32 @@ public class PlanService {
         planRepository.save(planEntity);
         return ResponseEntity.ok().body(planEntity);
     }
-    public List<PlanDTO> toList(List<PlanEntity> plans){
-        List<PlanDTO> planDTOS = new ArrayList<>();
-        for (PlanEntity entity : plans){
-            planDTOS.add(ModelToDTO.planFactory(entity));
-        }
-        return planDTOS;
-    }
 
-    public ResponseEntity<List<PlanDTO>> filterList(List<String> param){
-        List<PlanEntity> response = null;
-        if(param.size() == 2){
+    public ResponseEntity<List<PlanDTO>> filteredList(List<String> param, Long companyId){
+        List<PlanDTO> filteredListPlan = new ArrayList<>(), filterListPlan = new ArrayList<>();
+        filterListPlan.addAll(toList(companyId));
+        if(param.size() == 2) {
             String var, value;
             var = param.get(0).toLowerCase();
             value = param.get(1).toLowerCase();
             switch (var){
                 case "name":
-                    response = planRepository.findByNameContainingIgnoreCase(value);
+                    filterListPlan.stream()
+                            .dropWhile(planDTO -> planDTO.getName() == null)
+                            .filter(planDTO -> planDTO.getName().toLowerCase().contains(value))
+                            .forEach(filteredListPlan::add);
                     break;
                 case "status":
-                    boolean status;
-                    status = ("true".contains(value));
-                    response = planRepository.findByStatus(status);
+                    filterListPlan.stream()
+                            .filter(planDTO -> String.valueOf(planDTO.getIsActive()).contains(value))
+                            .forEach(filteredListPlan::add);
                     break;
                 default:
                     return null;
             }
+
         }
-        return ResponseEntity.ok().body(toList(response));
+        return ResponseEntity.ok().body(filteredListPlan);
     }
 
     public List<PlanDTO> toList(Long companyId){

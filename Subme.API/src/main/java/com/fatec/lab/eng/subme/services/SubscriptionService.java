@@ -80,6 +80,58 @@ public class SubscriptionService {
         return subscriptionDTOS;
     }
 
+    public ResponseEntity<List<SubscriptionDTO>> filteredList(List<String> param, Long companyId) {
+        if(param.size() == 2) {
+            String var, value;
+            var = param.get(0).toLowerCase();
+            value = param.get(1).toLowerCase();
+            switch (var){
+                case "name":
+                    List<CustomerEntity> responseC = new ArrayList<>();
+                    responseC = customerRepository.findByNameContainingIgnoreCase(value);
+                    Set<CustomerEntity> customers = new HashSet<>();
+                    responseC.stream()
+                                    .filter(customerEntity -> customerEntity.getCompanyId() == companyId &&
+                                            customerEntity.isStatus())
+                                    .forEach(customers::add);
+                    List<SubscriptionEntity> filteredListSubscriptionByCustomer = new ArrayList<>();
+                    customers.stream()
+                                    .forEach(customerEntity -> filteredListSubscriptionByCustomer.addAll(subscriptionRepository.findByCustomerId(customerEntity.getId())));
+
+                    return ResponseEntity.ok().body(toList(filteredListSubscriptionByCustomer));
+                case "plan":
+                    List<PlanEntity> responseP = new ArrayList<>();
+                    responseP = planRepository.findByNameContainingIgnoreCase(value);
+                    Set<PlanEntity> plans = new HashSet<>();
+                    responseP.stream()
+                            .filter(planEntity -> planEntity.getCompanyEntity() == companyId)
+                            .forEach(plans::add);
+                    List<SubscriptionEntity> filteredListSubscriptionByPlan = new ArrayList<>();
+                    plans.stream()
+                            .forEach(planEntity -> filteredListSubscriptionByPlan.addAll(subscriptionRepository.findByPlanId(planEntity.getId())));
+                    return ResponseEntity.ok().body(toList(filteredListSubscriptionByPlan));
+                case "status":
+                    int status;
+                    if ("active".contains(value) || Long.parseLong(value) == 1){
+                        status = SubscriptionStatus.ACTIVE.value;
+                    } else if("suspended".contains(value) || Long.parseLong(value) == 2){
+                        status = SubscriptionStatus.SUSPENDED.value;
+                    } else if ("canceled".contains(value) || Long.parseLong(value) == 3){
+                        status = SubscriptionStatus.CANCELED.value;
+                    } else {
+                        return null;
+                    }
+                    List<SubscriptionEntity> filteredListSubscriptionByStatus = new ArrayList<>();
+                    filteredListSubscriptionByStatus = subscriptionRepository.findByStatus(status);
+                    return ResponseEntity.ok().body(toList(filteredListSubscriptionByStatus));
+                default:
+                    return null;
+            }
+
+        }
+        return null;
+    }
+
     public ResponseEntity<List<SubscriptionDTO>> filterList(List<String> param){
         List<SubscriptionEntity> response = new ArrayList<>();
         ArrayList<CustomerEntity> responseC;

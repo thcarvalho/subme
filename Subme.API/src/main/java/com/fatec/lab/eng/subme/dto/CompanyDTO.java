@@ -5,7 +5,7 @@ import com.fatec.lab.eng.subme.factories.ModelToDTO;
 
 import java.util.List;
 
-public class CompanyDTO extends SystemUserDTO {
+public class CompanyDTO extends UserDTO{
 	private String cnpj;
 	private AddressDTO address;
 
