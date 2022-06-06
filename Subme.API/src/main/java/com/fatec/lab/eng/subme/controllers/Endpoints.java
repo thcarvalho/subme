@@ -22,6 +22,10 @@ import static java.util.Optional.ofNullable;
 
 @RestController
 public class Endpoints {
+
+    @Autowired
+    UserService userService;
+
     @Autowired
     CompanyRepository companyRepository;
 
@@ -31,8 +35,6 @@ public class Endpoints {
     @Autowired
     PlanRepository planRepository;
 
-    @Autowired
-    SubscriptionRepository subscriptionRepository;
 
     @Autowired
     CustomerService customerService;
@@ -52,7 +54,15 @@ public class Endpoints {
     @Autowired
     AddressService addressService;
 
+    @Autowired
+    AuthorizationService authorizationService;
+
     //creates---------------------------------------------------------------------------------------
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
+        return userService.validateLogon(userDTO);
+    }
 
     //cadastra empresa
     @PostMapping("/create/companies")
@@ -62,19 +72,20 @@ public class Endpoints {
 
     //cadastra planos
     @PostMapping("/create/plans")
-    public ResponseEntity<?> createPlan(@RequestBody PlanDTO planDTO){
+    public ResponseEntity<?> createPlan(@RequestBody PlanDTO planDTO, @RequestHeader(value="Authorization") String token){
+        planDTO.setCompanyId(authorizationService.GetIdFromJWT(token));
         return planService.create(planDTO);
     }
 
     //cadastra cliente vinculando-o com o plano e assim, gerando uma subscription
     @PostMapping("/create/customers")
-    public ResponseEntity<?> createCustomer(@RequestBody SubscriptionDTO subscriptionDTO){
-        return customerService.create(subscriptionDTO);
+    public ResponseEntity<?> createCustomer(@RequestBody SubscriptionDTO subscriptionDTO, @RequestHeader(value="Authorization") String token){
+        return customerService.create(subscriptionDTO , authorizationService.GetIdFromJWT(token));
     }
 
     @PostMapping("/create/subscriptions")
-    public ResponseEntity<?> createSubscription(@RequestBody SubscriptionDTO subscriptionDTO){
-        return subscriptionService.createWithCustomerRegistered(subscriptionDTO);
+    public ResponseEntity<?> createSubscription(@RequestBody SubscriptionDTO subscriptionDTO, @RequestHeader(value="Authorization") String token){
+        return subscriptionService.createWithCustomerRegistered(subscriptionDTO, authorizationService.GetIdFromJWT(token));
     }
 
     //Updates---------------------------------------------------------------------------------------
@@ -82,34 +93,37 @@ public class Endpoints {
 
 
     @PutMapping("/update/plans")
-    public ResponseEntity<?> updatePlan(@RequestBody PlanDTO planDTO){
+    public ResponseEntity<?> updatePlan(@RequestBody PlanDTO planDTO, @RequestHeader(value="Authorization") String token){
+        planDTO.setCompanyId(authorizationService.GetIdFromJWT(token));
         return planService.update(planDTO);
     }
 
     @PutMapping("/update/customers")
-    public ResponseEntity<?> updateCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<?> updateCustomer(@RequestBody CustomerDTO customerDTO, @RequestHeader(value="Authorization") String token){
+        customerDTO.setCompanyId(authorizationService.GetIdFromJWT(token));
         return customerService.update(customerDTO);
     }
 
     @PutMapping("/update/subscriptions")
-    public ResponseEntity<?> updateSubscriptions(@RequestBody SubscriptionDTO subscriptionDTO){
+    public ResponseEntity<?> updateSubscriptions(@RequestBody SubscriptionDTO subscriptionDTO, @RequestHeader(value="Authorization") String token){
+        subscriptionDTO.setCompanyId(authorizationService.GetIdFromJWT(token));
         return subscriptionService.update(subscriptionDTO);
     }
 
     @PutMapping("/update/addresses")
-    public ResponseEntity<?> updateAddresses(@RequestBody AddressDTO addressDTO){
+    public ResponseEntity<?> updateAddresses(@RequestBody AddressDTO addressDTO, @RequestHeader(value="Authorization") String token){
         return addressService.update(addressDTO);
     }
 
     //Delete------------------------------------------------------------------------------
     @DeleteMapping("/delete/customers/{id}")
-    public ResponseEntity<?> deleteCustomers(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCustomers(@PathVariable Long id, @RequestHeader(value="Authorization") String token) {
         return customerService.delete(id);
     }
 
     @DeleteMapping("/delete/plans/{id}")
-    public ResponseEntity<?> deletePlans(@PathVariable Long id) {
-        return customerService.delete(id);
+    public ResponseEntity<?> deletePlans(@PathVariable Long id, @RequestHeader(value="Authorization") String token) {
+        return planService.delete(id);
     }
 
 
@@ -123,18 +137,21 @@ public class Endpoints {
 
     @GetMapping("/customers")
     @ResponseBody
-    public ResponseEntity<List<CustomerDTO>> filterAllCostumers(@RequestParam Optional<List<String>> param){
-       return customerService.filterList(param.get());
+    public ResponseEntity<List<CustomerDTO>> filterAllCostumers(@RequestParam Optional<List<String>> param, @RequestHeader(value="Authorization") String token){
+        if (param.isPresent()) return customerService.filterList(param.get());
+        return ResponseEntity.ok().body(customerService.toList(authorizationService.GetIdFromJWT(token)));
     }
 
     @GetMapping("/plans")
-    public ResponseEntity<List<PlanDTO>> filterAllPlans(@RequestParam Optional<List<String>> param){
-        return planService.filterList(param.get());
+    public ResponseEntity<List<PlanDTO>> filterAllPlans(@RequestParam Optional<List<String>> param, @RequestHeader(value="Authorization") String token){
+        if (param.isPresent()) return planService.filterList(param.get());
+        return ResponseEntity.ok().body(planService.toList(authorizationService.GetIdFromJWT(token)));
     }
 
     @GetMapping("/subscriptions")
-    public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions(@RequestParam Optional<List<String>> param){
-        return subscriptionService.filterList(param.get());
+    public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions(@RequestParam Optional<List<String>> param, @RequestHeader(value="Authorization") String token){
+        if(param.isPresent()) return subscriptionService.filterList(param.get());
+        return ResponseEntity.ok().body(subscriptionService.toList(authorizationService.GetIdFromJWT(token)));
     }
 
 

@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     List<CustomerEntity> findByCpfContainingIgnoreCase(String cpf);
     ArrayList<CustomerEntity> findByNameContainingIgnoreCase(String name);
     List<CustomerEntity> findByEmailContainingIgnoreCase(String email);
+
+    List<CustomerEntity> findAllByCompanyId(Long companyId);
 }

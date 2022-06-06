@@ -1,17 +1,13 @@
 package com.fatec.lab.eng.subme.entities;
 
-import com.fatec.lab.eng.subme.dto.AddressDTO;
 import com.fatec.lab.eng.subme.dto.CustomerDTO;
-import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 import com.fatec.lab.eng.subme.factories.DTOToModel;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -33,8 +29,8 @@ public class CustomerEntity implements Serializable {
     @JoinColumn(name = "id_address")
     private AddressEntity address;
 
-    @JoinColumn(name = "id_company")
-    private Long idCompany;
+    @Column(name = "id_company")
+    private Long companyId;
 
     @Column(name = "email")
     private String email;
@@ -58,7 +54,7 @@ public class CustomerEntity implements Serializable {
         this.name = customerDTO.getName();
         this.cpf = customerDTO.getCpf();
         this.address = DTOToModel.addressFactory(customerDTO.getAddress());
-        this.idCompany = customerDTO.getCompanyId();
+        this.companyId = customerDTO.getCompanyId();
         this.email = customerDTO.getEmail();
         this.status = customerDTO.isStatus();
         this.createdAt = new Date();
@@ -97,12 +93,12 @@ public class CustomerEntity implements Serializable {
         this.address = address;
     }
 
-    public Long getIdCompany() {
-        return idCompany;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setIdCompany(Long idCompany) {
-        this.idCompany = idCompany;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getEmail() {

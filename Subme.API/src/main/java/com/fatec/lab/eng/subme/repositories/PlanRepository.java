@@ -11,5 +11,6 @@ public interface PlanRepository extends JpaRepository<PlanEntity, Long> {
     boolean existsByName(String name);
     ArrayList<PlanEntity> findByNameContainingIgnoreCase(String name);
 
+    List<PlanEntity> findAllByCompanyId(Long companyId);
     List<PlanEntity> findByStatus(boolean status);
 }

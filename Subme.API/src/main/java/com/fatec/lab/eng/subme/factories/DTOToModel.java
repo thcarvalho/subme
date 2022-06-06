@@ -24,8 +24,8 @@ public class DTOToModel {
         return new UserEntity(userDTO);
     }
 
-    public static SubscriptionEntity subscriptionFactory(CustomerDTO customerDTO, PlanDTO planDTO, int status) {
-        return new SubscriptionEntity(customerDTO, planDTO, status);
+    public static SubscriptionEntity subscriptionFactory(CustomerDTO customerDTO, PlanDTO planDTO, int status, Long companyId) {
+        return new SubscriptionEntity(customerDTO, planDTO, status, companyId);
     }
 
     public static AddressEntity addressFactory(AddressDTO dto){
