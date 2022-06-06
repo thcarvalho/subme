@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RequestParams } from '../classes/params/request-params';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export abstract class ApiService<TData, TOut> {
     protected http: HttpClient,
   ) { }
 
-  getAllAsync(): Observable<TOut[]> {
-    return this.http.get<TOut[]>(`${this.env.apiUrl}/${this.route}`);
+  getAllAsync(params: RequestParams): Observable<TOut[]> {
+    return this.http.get<TOut[]>(`${this.env.apiUrl}/${this.route}`, { params });
   }
 
   createAsync(data: TData): Observable<TOut> {

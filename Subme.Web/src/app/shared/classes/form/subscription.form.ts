@@ -1,4 +1,5 @@
 export class SubscriptionForm {
+  id?: number;
   customer!: {
     id: number;
   };

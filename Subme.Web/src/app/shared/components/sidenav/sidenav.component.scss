@@ -1,5 +1,5 @@
 .sidenav-container {
-  $transition-duration: 0.5s;
+  $transition-duration: 0.3s;
   background-color: #c2c2c2;
   height: 100%;
   padding: 1em 0;
@@ -15,19 +15,34 @@
     width: 100%;
     font-weight: 500;
     font-size: 20px;
-    .list-item {
+
+    .list-item,
+    .list-item-logout {
       padding: 0 1em;
       height: 70px;
       margin-top: 1em;
     }
+
     .list-item-selected {
       color: white;
       background-color: #b1b1b1;
     }
+
     .list-item:hover {
       transition: background-color $transition-duration;
       background-color: #b1b1b1;
       cursor: pointer;
+    }
+
+    .list-item-logout {
+      position: absolute;
+      bottom: 1em;
+    }
+
+    .list-item-logout:hover {
+      transition: color 0.2s;
+      cursor: pointer;
+      color: #fff;
     }
   }
 }

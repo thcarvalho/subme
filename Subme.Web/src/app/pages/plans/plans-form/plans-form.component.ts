@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalConfig } from 'src/app/shared/components/modal/classes/modal-config';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { Plan } from 'src/app/shared/entities/plan.entity';
 import { PlanService } from 'src/app/shared/services/plan.service';
 
@@ -18,12 +19,14 @@ export class PlansFormComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public config: ModalConfig,
+    private matDialogRef: MatDialogRef<ModalComponent>,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private planService: PlanService,
     protected http: HttpClient,
   ) {
     this.form = this.formBuilder.group({
+      id: [null],
       name: [null, [Validators.required]],
       price: [null, [Validators.required]],
       description: [null, [Validators.required]],
@@ -46,7 +49,13 @@ export class PlansFormComponent implements OnInit {
           isActive: true,
           companyId: 1
         } as Plan;
-        await this.planService.createAsync(data).toPromise();
+        if (this.isEditMode) {
+          await this.planService.updateAsync(data).toPromise();
+        } else {
+          await this.planService.createAsync(data).toPromise();
+        }
+        this.snackBar.open("Novo plano salvo com sucesso!")
+        this.matDialogRef.close(true);
       }
     } catch (error) {
       console.error(error);

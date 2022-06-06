@@ -2,19 +2,6 @@
   <div fxLayoutAlign="end">
     <button class="add-btn" mat-raised-button (click)="goToSubscriptionsForm()">NOVA ASSINATURA</button>
   </div>
-  <div fxLayoutGap="0.4em">
-    <mat-form-field appearance="fill" fxFlex="10">
-      <mat-label>Pesquisa</mat-label>
-      <mat-select>
-        <mat-option value="one">Cliente</mat-option>
-        <mat-option value="two">Plano</mat-option>
-        <mat-option value="two">Status</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill" fxFlex="90">
-      <mat-label>Digite aqui sua pesquisa...</mat-label>
-      <input matInput type="text">
-    </mat-form-field>
-  </div>
+  <app-search-input [config]="searchConfig"></app-search-input>
   <app-table [columns]="columns" [data]="tableData" [menuOptions]="tableOptions"></app-table>
 </div>

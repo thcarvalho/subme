@@ -15,6 +15,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogModule } from 'src/app/shared/components/confirm-dialog/confirm-dialog.module';
+import { MatIconModule } from '@angular/material/icon';
+import { SearchInputModule } from 'src/app/shared/components/search-input/search-input.module';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ConfirmDialogModule } from 'src/app/shared/components/confirm-dialog/co
     MatDialogModule,
     MatSnackBarModule,
     ModalModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MatIconModule,
+    SearchInputModule
   ],
   exports: [
     CustomersComponent,

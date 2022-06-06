@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SidenavItem } from './interfaces/sidenav-item';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidenavComponent implements OnInit {
   items: SidenavItem[] = [];
 
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.setSidenavItems();
@@ -22,5 +26,10 @@ export class SidenavComponent implements OnInit {
       { name: 'Planos', url: 'plans', icon: 'menu_book' },
       { name: 'Assinaturas', url: 'subscriptions', icon: 'request_page' },
     ];
+  }
+
+  logout(): void {
+    window.sessionStorage.removeItem("@token");
+    this.router.navigate(['login'])
   }
 }

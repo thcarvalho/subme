@@ -7,5 +7,9 @@
       <mat-icon>{{item.icon}}</mat-icon>
       <span>{{item.name}}</span>
     </div>
+    <a (click)="logout()"  class="list-item-logout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1.5em" >
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </a>
   </div>
 </div>

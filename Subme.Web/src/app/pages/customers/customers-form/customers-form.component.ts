@@ -1,30 +1,40 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerForm } from 'src/app/shared/classes/form/customer.form';
+import { RequestParams } from 'src/app/shared/classes/params/request-params';
 import { ModalConfig } from 'src/app/shared/components/modal/classes/modal-config';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { Customer } from 'src/app/shared/entities/customer.entity';
+import { Plan } from 'src/app/shared/entities/plan.entity';
 import { CustomerService } from 'src/app/shared/services/customer.service';
+import { PlanService } from 'src/app/shared/services/plan.service';
 
 @Component({
   selector: 'app-customers-form',
   templateUrl: './customers-form.component.html',
   styleUrls: ['./customers-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomersFormComponent implements OnInit {
   form!: FormGroup;
   isEditMode = false;
+  plans!: Plan[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public config: ModalConfig,
+    private matDialogRef: MatDialogRef<ModalComponent>,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private customerService: CustomerService,
+    private planService: PlanService,
     protected http: HttpClient,
+    private cdRef: ChangeDetectorRef,
   ) {
     this.form = this.formBuilder.group({
+      id: [null],
       name: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       cpf: [null, [Validators.required]],
@@ -39,7 +49,8 @@ export class CustomersFormComponent implements OnInit {
     this.isEditMode = !!this.config.data;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getPlansAsync();
     if (this.isEditMode) {
       const data = this.config.data as Customer;
       const address = data.address
@@ -55,11 +66,20 @@ export class CustomersFormComponent implements OnInit {
     }
   }
 
+  async getPlansAsync(): Promise<void> {
+    const params = {
+      param: "name,"
+    } as RequestParams;
+    this.plans = await this.planService.getAllAsync(params).toPromise();
+    this.cdRef.detectChanges();
+  }
+
   async saveCustomerAsync(): Promise<void> {
     try {
       if (this.isFormValid()) {
         const value = this.form.value;
         const data = {
+          id: value.id,
           customer: {
             companyId: 1,
             name: value.name,
@@ -77,7 +97,13 @@ export class CustomersFormComponent implements OnInit {
             id: value.planId
           }
         } as CustomerForm;
-        await this.customerService.createAsync(data).toPromise();
+        if (this.isEditMode) {
+          await this.customerService.updateAsync(data).toPromise();
+        } else {
+          await this.customerService.createAsync(data).toPromise();
+        }
+        this.snackBar.open("Novo cliente salvo com sucesso!")
+        this.matDialogRef.close(true);
       }
     } catch (error) {
       console.error(error);
