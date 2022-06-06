@@ -7,12 +7,15 @@ public class SubscriptionDTO extends RegisterDTO {
 	private PlanDTO plan;
 	private int status;
 
+	private Long companyId;
+
 	public SubscriptionDTO() {}
 
 	public SubscriptionDTO(SubscriptionEntity subscriptionEntity, CustomerDTO customerDTO, PlanDTO planDTO) {
 		this.setId(subscriptionEntity.getId());
 		this.customer = customerDTO;
 		this.plan = planDTO;
+		this.companyId = subscriptionEntity.getCompanyId();
 		this.status = subscriptionEntity.getStatus();
 		this.setCreatedAt(subscriptionEntity.getCreatedAt());
 		this.setUpdatedAt(subscriptionEntity.getUpdatedAt());
@@ -35,5 +38,13 @@ public class SubscriptionDTO extends RegisterDTO {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 }

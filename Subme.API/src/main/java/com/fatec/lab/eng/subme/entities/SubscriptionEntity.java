@@ -2,7 +2,6 @@ package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.PlanDTO;
-import com.fatec.lab.eng.subme.utils.SubscriptionStatus;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -29,6 +28,9 @@ public class SubscriptionEntity implements Serializable {
     @Column(name = "status")
     private int status;
 
+    @Column(name = "id_company")
+    private Long companyId;
+
     @CreatedDate
     @Column(name = "created_at")
     private Date createdAt;
@@ -44,14 +46,16 @@ public class SubscriptionEntity implements Serializable {
         this.customerId = customerEntity.getId();
         this.planId = planEntity.getId();
         this.status = status;
+        this.companyId = customerEntity.getCompanyId();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public SubscriptionEntity(CustomerDTO customerDTO, PlanDTO planDTO, int status) {
+    public SubscriptionEntity(CustomerDTO customerDTO, PlanDTO planDTO, int status, Long companyId) {
         this.customerId = customerDTO.getId();
         this.planId = planDTO.getId();
         this.status = status;
+        this.companyId = companyId;
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -82,6 +86,14 @@ public class SubscriptionEntity implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public Date getCreatedAt() {

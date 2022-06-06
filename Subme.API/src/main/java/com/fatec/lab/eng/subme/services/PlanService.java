@@ -77,4 +77,13 @@ public class PlanService {
         }
         return ResponseEntity.ok().body(toList(response));
     }
+
+    public List<PlanDTO> toList(Long companyId){
+        List<PlanDTO> planDTOS = new ArrayList<>();
+        for (PlanEntity entity : planRepository.findAllByCompanyId(companyId)){
+            planDTOS.add(ModelToDTO.planFactory(entity));
+        }
+        return planDTOS;
+    }
+
 }
