@@ -67,10 +67,7 @@ export class CustomersFormComponent implements OnInit {
   }
 
   async getPlansAsync(): Promise<void> {
-    const params = {
-      param: "name,"
-    } as RequestParams;
-    this.plans = await this.planService.getAllAsync(params).toPromise();
+    this.plans = await this.planService.getAllAsync().toPromise();
     this.cdRef.detectChanges();
   }
 
@@ -90,6 +87,7 @@ export class CustomersFormComponent implements OnInit {
               number: value.number,
               state: value.state,
               country: value.country,
+              street: value.street,
               zipcode: value.zipcode,
             },
           },
@@ -102,7 +100,7 @@ export class CustomersFormComponent implements OnInit {
         } else {
           await this.customerService.createAsync(data).toPromise();
         }
-        this.snackBar.open("Novo cliente salvo com sucesso!")
+        this.snackBar.open("Novo cliente salvo com sucesso!", undefined, { duration: 3000 })
         this.matDialogRef.close(true);
       }
     } catch (error) {
@@ -114,7 +112,7 @@ export class CustomersFormComponent implements OnInit {
     const valid = this.form.valid;
     if (!valid) {
       this.form.markAllAsTouched();
-      this.snackBar.open("Há campos inválidos no formulário!")
+      this.snackBar.open("Há campos inválidos no formulário!", undefined, { duration: 3000 })
     }
     return valid;
   }

@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     const valid = this.form.valid;
     if (!valid) {
       this.form.markAllAsTouched();
-      this.snackBar.open("Há campos inválidos no formulário!")
+      this.snackBar.open("Há campos inválidos no formulário!", undefined, { duration: 3000 })
     }
     return valid;
   }

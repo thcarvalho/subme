@@ -15,7 +15,7 @@ export abstract class ApiService<TData, TOut> {
     protected http: HttpClient,
   ) { }
 
-  getAllAsync(params: RequestParams): Observable<TOut[]> {
+  getAllAsync(params = new RequestParams()): Observable<TOut[]> {
     return this.http.get<TOut[]>(`${this.env.apiUrl}/${this.route}`, { params });
   }
 

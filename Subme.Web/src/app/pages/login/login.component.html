@@ -1,6 +1,8 @@
 <div [formGroup]="form" fxFill fxLayoutAlign="center center">
   <div class="login-container"  fxLayoutAlign="center" fxLayout="column">
-    <h1>Logo</h1>
+    <div class="logo-container">
+      <img src="./assets/Logo.svg" alt="Logo" class="logo">
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
       <input  matInput type="text" formControlName="username">

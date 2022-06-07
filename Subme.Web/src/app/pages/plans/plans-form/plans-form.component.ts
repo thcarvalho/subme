@@ -54,7 +54,7 @@ export class PlansFormComponent implements OnInit {
         } else {
           await this.planService.createAsync(data).toPromise();
         }
-        this.snackBar.open("Novo plano salvo com sucesso!")
+        this.snackBar.open("Novo plano salvo com sucesso!", undefined, { duration: 3000 })
         this.matDialogRef.close(true);
       }
     } catch (error) {
@@ -66,7 +66,7 @@ export class PlansFormComponent implements OnInit {
     const valid = this.form.valid;
     if (!valid) {
       this.form.markAllAsTouched();
-      this.snackBar.open("Há campos inválidos no formulário!")
+      this.snackBar.open("Há campos inválidos no formulário!", undefined, { duration: 3000 })
     }
     return valid;
   }

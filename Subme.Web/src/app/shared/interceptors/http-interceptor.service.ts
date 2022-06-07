@@ -52,6 +52,6 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   setToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
-    return req.clone({ setHeaders: { authorization: `Bearer ${token}` } });
+    return req.clone({ headers: req.headers.set('Authorization', `Bearer ${token}`) });
   }
 }

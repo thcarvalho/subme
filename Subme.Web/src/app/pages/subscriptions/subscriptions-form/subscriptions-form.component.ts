@@ -13,17 +13,23 @@ import { Subscription } from 'src/app/shared/entities/subscription.entity';
 import { CustomerService } from 'src/app/shared/services/customer.service';
 import { PlanService } from 'src/app/shared/services/plan.service';
 import { SubscriptionService } from 'src/app/shared/services/subscription.service';
+import { SubscriptionStatus } from 'src/app/shared/enums/subscription-status.enum';
 
 @Component({
   selector: 'app-subscriptions-form',
   templateUrl: './subscriptions-form.component.html',
-  styleUrls: ['./subscriptions-form.component.scss']
+  styleUrls: ['./subscriptions-form.component.scss'],
 })
 export class SubscriptionsFormComponent implements OnInit {
   form!: FormGroup;
   isEditMode = false;
   plans!: Plan[];
   customers!: Customer[];
+  subscriptionStatus = [
+    { id: SubscriptionStatus.active, label: 'Ativo' },
+    { id: SubscriptionStatus.suspended, label: 'Suspenso' },
+    { id: SubscriptionStatus.canceled, label: 'Cancelado' },
+  ];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public config: ModalConfig,
@@ -33,10 +39,11 @@ export class SubscriptionsFormComponent implements OnInit {
     private subscriptionService: SubscriptionService,
     private planService: PlanService,
     private customerService: CustomerService,
-    protected http: HttpClient,
+    protected http: HttpClient
   ) {
     this.form = this.formBuilder.group({
       id: [null],
+      status: [SubscriptionStatus.active, [Validators.required]],
       customerId: [null, [Validators.required]],
       planId: [null, [Validators.required]],
     });
@@ -49,18 +56,20 @@ export class SubscriptionsFormComponent implements OnInit {
     if (this.isEditMode) {
       const data = this.config.data as Subscription;
       this.form.patchValue({
+        id: data.id,
+        status: data.status,
         customerId: data.customer.id,
-        planId: data.plan.id
-      })
+        planId: data.plan.id,
+      });
     }
   }
 
   async getPlansAsync(): Promise<void> {
-    this.plans = await this.planService.getAllAsync(new RequestParams()).toPromise();
+    this.plans = await this.planService.getAllAsync().toPromise();
   }
 
   async getCustomersAsync(): Promise<void> {
-    this.customers = await this.customerService.getAllAsync(new RequestParams()).toPromise();
+    this.customers = await this.customerService.getAllAsync().toPromise();
   }
 
   async saveSubscriptionAsync(): Promise<void> {
@@ -70,18 +79,18 @@ export class SubscriptionsFormComponent implements OnInit {
         const data = {
           ...value,
           customer: {
-            id: value.customerId
+            id: value.customerId,
           },
           plan: {
-            id: value.planId
-          }
+            id: value.planId,
+          },
         } as SubscriptionForm;
         if (this.isEditMode) {
           await this.subscriptionService.updateAsync(data).toPromise();
         } else {
           await this.subscriptionService.createAsync(data).toPromise();
         }
-        this.snackBar.open("Nova assinatura salva com sucesso!")
+        this.snackBar.open('Nova assinatura salva com sucesso!', undefined, { duration: 3000 });
         this.matDialogRef.close(true);
       }
     } catch (error) {
@@ -93,9 +102,8 @@ export class SubscriptionsFormComponent implements OnInit {
     const valid = this.form.valid;
     if (!valid) {
       this.form.markAllAsTouched();
-      this.snackBar.open("Há campos inválidos no formulário!")
+      this.snackBar.open('Há campos inválidos no formulário!', undefined, { duration: 3000 });
     }
     return valid;
   }
-
 }

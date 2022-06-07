@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   getToken(): string | null{
-    return window.localStorage.getItem('@token');
+    return window.sessionStorage.getItem("@token");
   }
 
   setToken(token: string): void {
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   clearToken(): void {
-    window.localStorage.removeItem('@token');
-    window.localStorage.removeItem('@role');
+    window.sessionStorage.removeItem("@token");
+    window.sessionStorage.removeItem("@companyId");
   }
 }

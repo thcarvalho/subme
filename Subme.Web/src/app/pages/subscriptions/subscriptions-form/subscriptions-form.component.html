@@ -12,6 +12,12 @@
         <mat-option *ngFor="let item of plans"  [value]="item.id">{{item.name}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="outline" [fxHide]="!isEditMode">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let item of subscriptionStatus"  [value]="item.id">{{item.label}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <div mat-dialog-actions fxLayoutAlign="end center">
     <button mat-raised-button color="warn" (click)="saveSubscriptionAsync()">SALVAR</button>

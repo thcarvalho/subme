@@ -7,7 +7,6 @@ import { ModalService } from 'src/app/shared/components/modal/services/modal.ser
 import { SearchInputConfig } from 'src/app/shared/components/search-input/classes/search-input-config';
 import { TableMenuOptions } from 'src/app/shared/components/table/classes/table-menu-options';
 import { Subscription } from 'src/app/shared/entities/subscription.entity';
-import { SubscriptionStatus } from 'src/app/shared/enums/subscription-status.enum';
 import { SubscriptionService } from 'src/app/shared/services/subscription.service';
 import { SubscriptionsFormComponent } from './subscriptions-form/subscriptions-form.component';
 
@@ -25,7 +24,7 @@ export class SubscriptionsComponent implements OnInit {
   subscriptionStatus = ["Ativo", "Suspenso", "Cancelado"];
   searchConfig = {
     params: [
-      { id: 'customer', label: 'Cliente' },
+      { id: 'name', label: 'Cliente' },
       { id: 'plan', label: 'Plano' },
       { id: 'status', label: 'Status' },
     ],

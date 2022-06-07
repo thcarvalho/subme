@@ -8,8 +8,15 @@
   box-shadow: 8px -1px 16px -1px rgba(0,0,0,0.36);
 
   .sidenav-logo {
-
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    .logo {
+      cursor: pointer;
+      width: 10vw;
+    }
   }
+
   .list-container {
     margin-top: 10em;
     width: 100%;
@@ -25,7 +32,7 @@
 
     .list-item-selected {
       color: white;
-      background-color: #b1b1b1;
+      background-color: #F44336;
     }
 
     .list-item:hover {
