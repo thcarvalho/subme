@@ -77,29 +77,27 @@ export class CustomersFormComponent implements OnInit {
       this.isLoading = true;
       if (this.isFormValid()) {
         const value = this.form.value;
-        const data = {
+        const customer = {
           id: value.id,
-          customer: {
-            companyId: 1,
-            name: value.name,
-            email: value.email,
-            cpf: value.cpf,
-            address: {
-              city: value.city,
-              number: value.number,
-              state: value.state,
-              country: value.country,
-              street: value.street,
-              zipcode: value.zipcode,
-            },
-          },
-          plan: {
-            id: value.planId
+          name: value.name,
+          email: value.email,
+          cpf: value.cpf,
+          address: {
+            city: value.city,
+            number: value.number,
+            state: value.state,
+            country: value.country,
+            street: value.street,
+            zipcode: value.zipcode,
           }
-        } as CustomerForm;
+        } as Customer;
         if (this.isEditMode) {
-          await this.customerService.updateAsync(data).toPromise();
+          await this.customerService.updateAsync(customer).toPromise();
         } else {
+          const data = {
+            customer,
+            plan: { id: value.planId }
+          }
           await this.customerService.createAsync(data).toPromise();
         }
         this.snackBar.open("Novo cliente salvo com sucesso!", undefined, { duration: 3000 })

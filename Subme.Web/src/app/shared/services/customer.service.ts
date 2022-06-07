@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService extends ApiService<CustomerForm, Customer> {
+export class CustomerService extends ApiService<any, Customer> {
 
   constructor(
     protected http: HttpClient,
