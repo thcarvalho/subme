@@ -85,7 +85,8 @@ public class Endpoints {
 
     @PostMapping("/create/subscriptions")
     public ResponseEntity<?> createSubscription(@RequestBody SubscriptionDTO subscriptionDTO, @RequestHeader(value="Authorization") String token){
-        return subscriptionService.createWithCustomerRegistered(subscriptionDTO, authorizationService.GetIdFromJWT(token));
+        subscriptionDTO.setCompanyId(authorizationService.GetIdFromJWT(token));
+        return subscriptionService.createWithCustomerRegistered(subscriptionDTO);
     }
 
     //Updates---------------------------------------------------------------------------------------

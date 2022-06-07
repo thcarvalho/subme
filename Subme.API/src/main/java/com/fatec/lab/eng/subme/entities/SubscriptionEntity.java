@@ -2,6 +2,7 @@ package com.fatec.lab.eng.subme.entities;
 
 import com.fatec.lab.eng.subme.dto.CustomerDTO;
 import com.fatec.lab.eng.subme.dto.PlanDTO;
+import com.fatec.lab.eng.subme.dto.SubscriptionDTO;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -51,11 +52,12 @@ public class SubscriptionEntity implements Serializable {
         this.updatedAt = new Date();
     }
 
-    public SubscriptionEntity(CustomerDTO customerDTO, PlanDTO planDTO, int status, Long companyId) {
-        this.customerId = customerDTO.getId();
-        this.planId = planDTO.getId();
-        this.status = status;
-        this.companyId = companyId;
+    public SubscriptionEntity(SubscriptionDTO subscriptionDTO) {
+        this.id = subscriptionDTO.getId();
+        this.customerId = subscriptionDTO.getCustomer().getId();
+        this.planId = subscriptionDTO.getPlan().getId();
+        this.status = subscriptionDTO.getStatus();
+        this.companyId = subscriptionDTO.getCompanyId();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
