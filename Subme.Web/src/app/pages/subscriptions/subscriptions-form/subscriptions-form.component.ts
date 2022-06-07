@@ -25,6 +25,7 @@ export class SubscriptionsFormComponent implements OnInit {
   isEditMode = false;
   plans!: Plan[];
   customers!: Customer[];
+  isLoading = false;
   subscriptionStatus = [
     { id: SubscriptionStatus.active, label: 'Ativo' },
     { id: SubscriptionStatus.suspended, label: 'Suspenso' },
@@ -74,6 +75,7 @@ export class SubscriptionsFormComponent implements OnInit {
 
   async saveSubscriptionAsync(): Promise<void> {
     try {
+      this.isLoading = true;
       if (this.isFormValid()) {
         const value = this.form.value;
         const data = {
@@ -95,6 +97,8 @@ export class SubscriptionsFormComponent implements OnInit {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      this.isLoading = false;
     }
   }
 

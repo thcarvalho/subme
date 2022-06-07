@@ -13,6 +13,8 @@ import { ModalModule } from 'src/app/shared/components/modal/modal.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogModule } from 'src/app/shared/components/confirm-dialog/confirm-dialog.module';
 import { SearchInputModule } from 'src/app/shared/components/search-input/search-input.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -33,7 +35,9 @@ import { SearchInputModule } from 'src/app/shared/components/search-input/search
     MatDialogModule,
     ModalModule,
     ConfirmDialogModule,
-    SearchInputModule
+    SearchInputModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ]
 })
 export class SubscriptionsModule { }

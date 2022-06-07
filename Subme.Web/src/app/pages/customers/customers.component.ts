@@ -20,6 +20,7 @@ export class CustomersComponent implements OnInit {
   columns: any[] = [];
   tableOptions!: TableMenuOptions;
   data!: Customer[];
+  isLoading = true;
   searchConfig = {
     params: [
       { id: 'name', label: 'Nome' },
@@ -47,9 +48,11 @@ export class CustomersComponent implements OnInit {
   }
 
   async refreshTableAsync(query = new RequestParams()): Promise<void> {
+    this.isLoading = true
     await this.getDataAsync(query);
     this.setTableConfig();
     this.setColumns();
+    this.isLoading = false
     this.cdRef.detectChanges();
   }
 
@@ -74,9 +77,9 @@ export class CustomersComponent implements OnInit {
       const query = {
         param: `${param},${value}`
       } as RequestParams;
-      await this.getDataAsync(query);
       await this.refreshTableAsync(query);
     } catch (error) {
+      this.isLoading = false
       console.error(error);
     }
   }

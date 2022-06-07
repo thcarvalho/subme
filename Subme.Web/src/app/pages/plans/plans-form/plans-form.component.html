@@ -13,7 +13,8 @@
       <textarea matInput type="text" formControlName="description"></textarea>
     </mat-form-field>
   </div>
-  <div mat-dialog-actions fxLayoutAlign="end center">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading" color="warn"></mat-progress-bar>
+  <div mat-dialog-actions fxLayoutAlign="end center" *ngIf="!isLoading">
     <button mat-raised-button color="warn" (click)="savePlanAsync()">SALVAR</button>
     <button mat-button mat-dialog-close>CANCELAR</button>
   </div>

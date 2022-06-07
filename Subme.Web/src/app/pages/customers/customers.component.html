@@ -3,5 +3,8 @@
     <button class="add-btn" (click)="goToCustomersForm()" mat-raised-button>NOVO CLIENTE</button>
   </div>
   <app-search-input [config]="searchConfig"></app-search-input>
-  <app-table [menuOptions]="tableOptions" [columns]="columns" [data]="data"></app-table>
+  <app-table *ngIf="!isLoading" [menuOptions]="tableOptions" [columns]="columns" [data]="data"></app-table>
+  <div fxLayoutAlign="center" class="spinner" *ngIf="isLoading">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
 </div>

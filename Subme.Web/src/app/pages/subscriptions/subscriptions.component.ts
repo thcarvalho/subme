@@ -22,6 +22,7 @@ export class SubscriptionsComponent implements OnInit {
   tableOptions!: TableMenuOptions;
   tableData!: any[];
   subscriptionStatus = ["Ativo", "Suspenso", "Cancelado"];
+  isLoading = true;
   searchConfig = {
     params: [
       { id: 'name', label: 'Cliente' },
@@ -54,15 +55,18 @@ export class SubscriptionsComponent implements OnInit {
       } as RequestParams;
       await this.refreshTableAsync(query);
     } catch (error) {
+      this.isLoading = false;
       console.error(error);
     }
   }
 
   async refreshTableAsync(query = new RequestParams()): Promise<void> {
+    this.isLoading = true;
     await this.getDataAsync(query);
     this.setTableData();
     this.setTableConfig();
     this.setColumns();
+    this.isLoading = false;
     this.cdRef.detectChanges();
   }
 

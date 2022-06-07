@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
 
   async loginAsync(): Promise<void> {
     try {
+      this.isLoading = true;
       if (this.isFormValid()) {
         const data = this.form.value as LoginUser;
         const { token } = await this.authService.loginAsync(data).toPromise();
@@ -47,8 +49,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard', 'home'])
       }
     } catch ({error}) {
-      this.snackBar.open(error as string);
+      this.snackBar.open(error as string, undefined, { duration: 3000 });
       console.error(error);
+    } finally {
+      this.isLoading = false;
     }
   }
 }

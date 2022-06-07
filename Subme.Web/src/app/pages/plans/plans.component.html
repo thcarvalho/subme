@@ -3,5 +3,8 @@
     <button class="add-btn" (click)="goToPlansForm()" mat-raised-button>NOVO PLANO</button>
   </div>
   <app-search-input [config]="searchConfig"></app-search-input>
-  <app-table [columns]="columns" [data]="tableData" [menuOptions]="tableOptions"></app-table>
+  <app-table *ngIf="!isLoading" [columns]="columns" [data]="tableData" [menuOptions]="tableOptions"></app-table>
+  <div fxLayoutAlign="center" class="spinner" *ngIf="isLoading">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
 </div>

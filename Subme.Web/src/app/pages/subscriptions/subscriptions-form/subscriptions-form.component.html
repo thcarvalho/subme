@@ -18,8 +18,8 @@
         <mat-option *ngFor="let item of subscriptionStatus"  [value]="item.id">{{item.label}}</mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
-  <div mat-dialog-actions fxLayoutAlign="end center">
+  </div><mat-progress-bar mode="indeterminate" *ngIf="isLoading" color="warn"></mat-progress-bar>
+  <div mat-dialog-actions fxLayoutAlign="end center" *ngIf="!isLoading">
     <button mat-raised-button color="warn" (click)="saveSubscriptionAsync()">SALVAR</button>
     <button mat-button mat-dialog-close>CANCELAR</button>
   </div>

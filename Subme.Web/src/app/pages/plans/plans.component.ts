@@ -21,6 +21,7 @@ export class PlansComponent implements OnInit {
   data!: Plan[];
   tableOptions!: TableMenuOptions;
   tableData!: any[]
+  isLoading = true;
   searchConfig = {
     params: [
       { id: 'name', label: 'Nome' },
@@ -53,6 +54,7 @@ export class PlansComponent implements OnInit {
       await this.getDataAsync(query);
       await this.refreshTableAsync(query);
     } catch (error) {
+      this.isLoading = false;
       console.error(error);
     }
   }
@@ -78,10 +80,12 @@ export class PlansComponent implements OnInit {
   }
 
   async refreshTableAsync(query = new RequestParams()): Promise<void> {
+    this.isLoading = true;
     await this.getDataAsync(query);
     this.setTableConfig();
     this.setTableData();
     this.setColumns();
+    this.isLoading = false;
     this.cdRef.detectChanges();
   }
 

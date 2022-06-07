@@ -22,6 +22,7 @@ export class CustomersFormComponent implements OnInit {
   form!: FormGroup;
   isEditMode = false;
   plans!: Plan[];
+  isLoading = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public config: ModalConfig,
@@ -73,6 +74,7 @@ export class CustomersFormComponent implements OnInit {
 
   async saveCustomerAsync(): Promise<void> {
     try {
+      this.isLoading = true;
       if (this.isFormValid()) {
         const value = this.form.value;
         const data = {
@@ -105,6 +107,8 @@ export class CustomersFormComponent implements OnInit {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      this.isLoading = false;
     }
   }
 

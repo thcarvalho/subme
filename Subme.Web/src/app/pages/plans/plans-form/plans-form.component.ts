@@ -16,6 +16,7 @@ import { PlanService } from 'src/app/shared/services/plan.service';
 export class PlansFormComponent implements OnInit {
   form!: FormGroup;
   isEditMode = false;
+  isLoading = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public config: ModalConfig,
@@ -43,6 +44,7 @@ export class PlansFormComponent implements OnInit {
 
   async savePlanAsync(): Promise<void> {
     try {
+      this.isLoading = true;
       if (this.isFormValid()) {
         const data = {
           ...this.form.value,
@@ -59,6 +61,8 @@ export class PlansFormComponent implements OnInit {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      this.isLoading = false;
     }
   }
 

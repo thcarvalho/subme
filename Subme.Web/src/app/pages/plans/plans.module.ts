@@ -12,6 +12,8 @@ import { PlansFormComponent } from './plans-form/plans-form.component';
 import { ModalModule } from 'src/app/shared/components/modal/modal.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SearchInputModule } from 'src/app/shared/components/search-input/search-input.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -31,7 +33,9 @@ import { SearchInputModule } from 'src/app/shared/components/search-input/search
     MatSelectModule,
     MatDialogModule,
     ModalModule,
-    SearchInputModule
+    SearchInputModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ]
 })
 export class PlansModule { }
