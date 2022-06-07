@@ -1,14 +1,17 @@
-<div fxFill fxLayoutAlign="center center">
+<div [formGroup]="form" fxFill fxLayoutAlign="center center">
   <div class="login-container"  fxLayoutAlign="center" fxLayout="column">
-    <h1>Logo</h1>
+    <div class="logo-container">
+      <img src="./assets/Logo.svg" alt="Logo" class="logo">
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
-      <input  matInput type="text">
+      <input  matInput type="text" formControlName="username">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Senha</mat-label>
-      <input matInput type="text">
+      <input matInput type="password" formControlName="password">
     </mat-form-field>
-    <button mat-raised-button color="warn">Entrar</button>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading" color="warn"></mat-progress-bar>
+    <button mat-raised-button color="warn" *ngIf="!isLoading" (click)="loginAsync()" >Entrar</button>
   </div>
 </div>

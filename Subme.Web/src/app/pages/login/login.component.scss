@@ -10,3 +10,11 @@
 .login-input {
   background-color: white;
 }
+.logo-container {
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+  .logo {
+    width: 12vw;
+  }
+}

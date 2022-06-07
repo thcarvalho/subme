@@ -1,0 +1,15 @@
+<div fxLayoutGap="0.4em" [formGroup]="form">
+  <mat-form-field appearance="fill" fxFlex="10">
+    <mat-label>Pesquisa</mat-label>
+    <mat-select formControlName="param">
+      <mat-option *ngFor="let item of config.params" [value]="item.id">{{item.label}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" fxFlex="95">
+    <mat-label>Digite aqui sua pesquisa...</mat-label>
+    <input matInput type="text" formControlName="value">
+  </mat-form-field>
+  <button mat-button fxFlex="5" class="search-btn" (click)="search()" >
+    <mat-icon>search</mat-icon>
+  </button>
+</div>

@@ -1,11 +1,15 @@
 <div class="sidenav-container">
-  <div class="sidenav-logo">
-    <h1>Logo</h1>
+  <div class="sidenav-logo" routerLink="home">
+    <img src="./assets/Logo.svg" alt="Logo" class="logo">
   </div>
   <div class="list-container">
     <div class="list-item" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1.5em" *ngFor="let item of items" [routerLink]="item.url" routerLinkActive="list-item-selected">
       <mat-icon>{{item.icon}}</mat-icon>
       <span>{{item.name}}</span>
     </div>
+    <a (click)="logout()"  class="list-item-logout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1.5em" >
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </a>
   </div>
 </div>

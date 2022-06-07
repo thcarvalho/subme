@@ -14,11 +14,10 @@
           <mat-label>CPF</mat-label>
           <input matInput type="text" formControlName="cpf">
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" [fxHide]="isEditMode">
           <mat-label>Plano</mat-label>
           <mat-select formControlName="planId">
-            <mat-option value="0">Plano Comum</mat-option>
-            <mat-option value="1">Plano Premium</mat-option>
+            <mat-option *ngFor="let item of plans"  [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -50,7 +49,8 @@
       </div>
     </div>
   </div>
-  <div mat-dialog-actions fxLayoutAlign="end center">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading" color="warn"></mat-progress-bar>
+  <div mat-dialog-actions fxLayoutAlign="end center" *ngIf="!isLoading">
     <button mat-raised-button color="warn" (click)="saveCustomerAsync()" [disabled]="form.invalid">SALVAR</button>
     <button mat-button mat-dialog-close>CANCELAR</button>
   </div>

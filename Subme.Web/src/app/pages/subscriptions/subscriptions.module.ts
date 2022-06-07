@@ -11,6 +11,10 @@ import { TableModule } from 'src/app/shared/components/table/table.module';
 import { SubscriptionsFormComponent } from './subscriptions-form/subscriptions-form.component';
 import { ModalModule } from 'src/app/shared/components/modal/modal.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogModule } from 'src/app/shared/components/confirm-dialog/confirm-dialog.module';
+import { SearchInputModule } from 'src/app/shared/components/search-input/search-input.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -29,7 +33,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
-    ModalModule
+    ModalModule,
+    ConfirmDialogModule,
+    SearchInputModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ]
 })
 export class SubscriptionsModule { }

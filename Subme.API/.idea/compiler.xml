@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Subme.API" />
         <module name="subme" />
+        <module name="Subme.API" />
       </profile>
     </annotationProcessing>
   </component>

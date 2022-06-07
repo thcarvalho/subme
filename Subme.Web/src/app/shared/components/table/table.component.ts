@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseEntity } from '../../entities/base.entity';
 import { ModalService } from '../modal/services/modal.service';
@@ -8,8 +8,9 @@ import { TableMenuOptions } from './classes/table-menu-options';
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() columns: any[][] = [];
   @Input() data: BaseEntity[] = [];
   @Input() menuOptions!: TableMenuOptions;
@@ -18,11 +19,18 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = [];
 
   constructor(
-    public modalService: ModalService
+    public modalService: ModalService,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.refresh();
+  }
+
+  ngOnChanges(changes: SimpleChanges | this): void {
+    if (changes.data) {
+      this.refresh();
+    }
   }
 
   getKeys(data: any[]): void {
@@ -37,13 +45,16 @@ export class TableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.data);
       this.getKeys(this.data);
     }
+    this.cdRef.detectChanges();
   }
 
   onDelete(id: number): void {
     this.menuOptions.deleteAction(id);
+    this.refresh();
   }
 
   onEdit(id: number): void {
     this.menuOptions.editAction(id);
+    this.refresh();
   }
 }

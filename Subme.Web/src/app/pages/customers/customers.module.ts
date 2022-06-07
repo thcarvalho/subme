@@ -14,13 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ConfirmDialogModule } from 'src/app/shared/components/confirm-dialog/confirm-dialog.module';
+import { MatIconModule } from '@angular/material/icon';
+import { SearchInputModule } from 'src/app/shared/components/search-input/search-input.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-  declarations: [
-    CustomersComponent,
-    CustomersFormComponent,
-  ],
+  declarations: [CustomersComponent, CustomersFormComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -34,11 +35,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatDialogModule,
     MatSnackBarModule,
-    ModalModule
+    ModalModule,
+    ConfirmDialogModule,
+    MatIconModule,
+    SearchInputModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
-  exports: [
-    CustomersComponent,
-    CustomersFormComponent,
-  ],
+  exports: [CustomersComponent, CustomersFormComponent],
 })
-export class CustomersModule { }
+export class CustomersModule {}

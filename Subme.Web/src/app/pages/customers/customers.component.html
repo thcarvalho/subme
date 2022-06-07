@@ -1,19 +1,10 @@
 <div class="container">
   <div fxLayoutAlign="end">
-    <button class="add-btn" (click)="goToCustomersForm()"  mat-raised-button>NOVO CLIENTE</button>
+    <button class="add-btn" (click)="goToCustomersForm()" mat-raised-button>NOVO CLIENTE</button>
   </div>
-  <div fxLayoutGap="0.4em">
-    <mat-form-field appearance="fill" fxFlex="10">
-      <mat-label>Pesquisa</mat-label>
-      <mat-select>
-        <mat-option value="one">Nome</mat-option>
-        <mat-option value="two">E-mail</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill" fxFlex="90">
-      <mat-label>Digite aqui sua pesquisa...</mat-label>
-      <input matInput type="text">
-    </mat-form-field>
+  <app-search-input [config]="searchConfig"></app-search-input>
+  <app-table *ngIf="!isLoading" [menuOptions]="tableOptions" [columns]="columns" [data]="data"></app-table>
+  <div fxLayoutAlign="center" class="spinner" *ngIf="isLoading">
+    <mat-spinner color="warn"></mat-spinner>
   </div>
-  <app-table [menuOptions]="tableOptions" [columns]="columns" [data]="data"></app-table>
 </div>

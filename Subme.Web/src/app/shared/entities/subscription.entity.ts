@@ -1,8 +1,10 @@
 import { SubscriptionStatus } from "../enums/subscription-status.enum";
 import { BaseEntity } from "./base.entity";
+import { Customer } from "./customer.entity";
+import { Plan } from "./plan.entity";
 
 export class Subscription extends BaseEntity {
-  customerId!: number;
-  planId!: number;
+  customer!: Customer;
+  plan!: Plan;
   status!: SubscriptionStatus;
 }
