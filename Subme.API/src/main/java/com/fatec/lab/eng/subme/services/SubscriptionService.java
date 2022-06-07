@@ -32,7 +32,7 @@ public class SubscriptionService {
 
     public ResponseEntity<?> update(SubscriptionDTO subscriptionDTO){
         if (!subscriptionRepository.existsById(subscriptionDTO.getId())) ResponseEntity.badRequest().body("Inscrição não existe");
-        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(subscriptionDTO.getCustomer(), subscriptionDTO.getPlan(), subscriptionDTO.getStatus(), subscriptionDTO.getCompanyId());
+        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(subscriptionDTO);
         subscriptionRepository.save(subscriptionEntity);
         return ResponseEntity.ok().body(subscriptionEntity);
     }
@@ -43,17 +43,14 @@ public class SubscriptionService {
         return ResponseEntity.ok().body(subscriptionEntity);
     }
 
-    public ResponseEntity<?> createWithCustomerRegistered(CustomerDTO customerDTO, PlanDTO planDTO, int status, Long companyId){
-        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(customerDTO, planDTO, status, companyId);
-        subscriptionRepository.save(subscriptionEntity);
-        return ResponseEntity.ok().body(subscriptionEntity);
-    }
 
-    public ResponseEntity<?> createWithCustomerRegistered(SubscriptionDTO subscriptionDTO, Long companyId){
+    public ResponseEntity<?> createWithCustomerRegistered(SubscriptionDTO subscriptionDTO){
         if(!customerRepository.existsById(subscriptionDTO.getCustomer().getId())){
             return ResponseEntity.badRequest().body("CPF ou CNPJ não cadastrado!");
         }
-        return ResponseEntity.ok().body(createWithCustomerRegistered(subscriptionDTO.getCustomer(), subscriptionDTO.getPlan(), 1, companyId));
+        SubscriptionEntity subscriptionEntity = DTOToModel.subscriptionFactory(subscriptionDTO);
+        subscriptionRepository.save(subscriptionEntity);
+        return ResponseEntity.ok().body(subscriptionEntity);
     }
 
     public List<SubscriptionDTO> toList(Long companyId){
