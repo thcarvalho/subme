@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://api-subme.vercel.app/"
+  apiUrl: "https://api-subme.vercel.app"
 };
 
 /*
