@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SearchInputModule } from 'src/app/shared/components/search-input/search-input.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [CustomersComponent, CustomersFormComponent],
@@ -40,7 +41,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatIconModule,
     SearchInputModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxMaskModule.forRoot()
   ],
   exports: [CustomersComponent, CustomersFormComponent],
 })

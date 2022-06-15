@@ -1,6 +1,7 @@
 <div class="container">
-  <div fxLayoutAlign="end">
+  <div fxLayoutAlign="end" fxLayoutGap="1em">
     <button class="add-btn" mat-raised-button (click)="goToSubscriptionsForm()">NOVA ASSINATURA</button>
+    <button class="add-btn" mat-raised-button (click)="generatePDF()">GERAR RELATÓRIO</button>
   </div>
   <app-search-input [config]="searchConfig"></app-search-input>
   <app-table *ngIf="!isLoading" [columns]="columns" [data]="tableData" [menuOptions]="tableOptions"></app-table>

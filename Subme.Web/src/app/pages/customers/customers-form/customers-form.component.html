@@ -8,11 +8,11 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>E-mail</mat-label>
-          <input matInput type="text" formControlName="email">
+          <input matInput type="email" formControlName="email">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>CPF</mat-label>
-          <input matInput type="text" formControlName="cpf">
+          <input mask="000.000.000-00" matInput type="text" formControlName="cpf">
         </mat-form-field>
         <mat-form-field appearance="outline" [fxHide]="isEditMode">
           <mat-label>Plano</mat-label>
@@ -22,7 +22,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>CEP</mat-label>
-          <input matInput type="text" formControlName="zipcode">
+          <input mask="00000-000" matInput type="text" formControlName="zipcode">
         </mat-form-field>
       </div>
       <div fxLayout="column" fxLayoutGap=".1em" fxFlex="100">
